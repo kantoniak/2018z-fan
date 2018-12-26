@@ -1,6 +1,6 @@
 % Document setup
-\documentclass[10pt]{article}
-\usepackage[a4paper,top=1cm, bottom=1cm, left=1cm, right=1cm]{geometry}
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1.75cm]{geometry}
 
 % Language and encoding
 \usepackage[T1]{fontenc}
@@ -8,10 +8,46 @@
 \usepackage{polski}
 
 % Imports
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{amsthm}
+
+% Styling
+\usepackage{lmodern}
+\setlength{\parindent}{0cm} % No paragraph indents for the first line
+\usepackage{secdot} % Add dot after section number
+\newcommand{\extcomplex}{\overline{\mathbb{C}}} % Extended complex plane
+\newcommand{\abs}[1]{|#1|} % Absolute value
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % Norm
+
+% Theorems and definitions
+\theoremstyle{definition}
+\newtheorem*{definition}{Definicja}
+
+% Document meta
+\title{Funkcje analityczne}
+\makeatletter
 
 \begin{document}
 
-Treść dokumentu
+% Title
+{\huge\bfseries\@title\par}
+\vspace{0.1cm}
+{\Large Notatki z semestru zimowego 2018/2019\par}
 
+\section{Szeregi o wyrazach zespolonych}
+
+\begin{definition}
+  Szereg zespolony $\sum_{n=1}^{\infty} a_{n}$ jest zbieżny do sumy $ s \in \mathbb{C} $ wtedy i tylko wtedy, gdy $ \sum_{n=1}^{k} a_{n} $ ma granicę $ s $ przy $ k\to\infty $.
+\end{definition}
+
+\begin{definition}[Granica szeregu funkcyjnego]
+  Niech $ K \subset \extcomplex $ będzie dowolnym zbiorem. Niech $ f_{n} \colon K \to \mathbb{C} $, $ \norm{f}_{K} = \sup_{K}\abs{f(z)} $. Wówczas $ (f_{n}) $ jest zbieżny jednostajnie do $ f $ wtedy i tylko wtedy, gdy
+  $$ \lim_{k\to\infty} \norm{f - \sum_{n=1}^{k} f_{n}}_{K} = 0 $$.
+\end{definition}
+
+% TODO: Własność: całkowanie szeregu jednostajnie zbieżnego
+% TODO: Właśność: Kryterium Weierstrassa jednostajnej zbieżności
+% TODO: Twierdzenie o rozwijaniu funkcji holomorficznej w szereg potęgowy
+ 
 \end{document}
