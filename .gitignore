@@ -1,0 +1,6 @@
+# Auxiliary files
+*.aux
+*.log
+
+# Compiled output
+*.pdf
