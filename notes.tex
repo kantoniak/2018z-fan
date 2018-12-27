@@ -12,6 +12,9 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage[calc]{adjustbox}
 
 % Styling
 \usepackage{lmodern}
@@ -77,13 +80,24 @@
   Niech $ K \subset \extcomplex $, $ f_{n} \colon K \to \mathbb{C} $. Szereg $ \sum f_{n}(z) $ jest jednostajnie zbieżny na $ K $, jeśli istnieją takie liczby $ c_{n} $, że $ \norm{f_n(z)}_K \leq c_{n} $ oraz szereg $ \sum c_{n} $ jest zbieżny.
 \end{theorem}
 
+\begin{adjustbox}{valign=C,raise=0em,minipage={1.0\linewidth}}
+\setlength{\columnsep}{0.5cm}
+\begin{wrapfigure}{r}{4cm}
+    \vspace*{-1.5em}
+    \resizebox{\linewidth}{!}{\input{holomorphic-taylor-expansion.tikz}}
+\end{wrapfigure}
+\strut{}
+\vspace*{-1.9em}
+
 \begin{theorem}[Rozwijanie funkcji holomorficznej w szereg Taylora]
-  Niech $ f $ będzie holomorficzna w obszarze $ D $ oraz $ K(a, R) \subset D $. Wówczas istnieje szereg postaci $ \sum_{n = 0}^{\infty} c_{n}(z-a)^{n} $, zbieżny do f(z) wewnątrz koła $ K(a, R) $. Szereg nazywamy szeregiem Taylora
+  Niech $ f $ będzie holomorficzna w obszarze $ D $ oraz $ K(a, R) \subset D $. Wówczas istnieje szereg postaci $ \sum_{n = 0}^{\infty} c_{n}(z-a)^{n} $, zbieżny do f(z) wewnątrz koła $ K(a, R) $. Ten szereg nazywamy szeregiem Taylora.
 \end{theorem}
 
+\end{adjustbox}
+
 \begin{proof}
-  % TODO: Obrazek
   Całkujemy po koncentrycznych okręgach wewnątrz koła $ K(a, R) $.
+
   \begin{align*}
     f(z) &
     = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{\zeta-z} d\zeta
