@@ -11,18 +11,39 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{enumitem}
 
 % Styling
 \usepackage{lmodern}
 \setlength{\parindent}{0cm} % No paragraph indents for the first line
 \usepackage{secdot} % Add dot after section number
-\newcommand{\extcomplex}{\overline{\mathbb{C}}} % Extended complex plane
-\newcommand{\abs}[1]{|#1|} % Absolute value
+\newcommand{\abs}[1]{\left|#1\right|} % Absolute value
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert} % Norm
+\newcommand{\closure}[1]{\overline{#1}} % Set closure
+\newcommand{\extcomplex}{\overline{\mathbb{C}}} % Extended complex plane
+\newcommand{\eqtext}[1]{\overset{\text{\tiny\sffamily #1}}{=}} % Text over equality sign
+\newcommand{\Forall}[1]{\mathop{\vcenter{\hbox{\LARGE$\forall$}}}\limits_{#1}} % Huge \forall for full-line rendering
+\setlist[enumerate]{label=(\alph*),ref=(\alph*),leftmargin=*,topsep=0.4ex,itemsep=-0.6ex,partopsep=1ex,parsep=1ex} % List margins
 
 % Theorems and definitions
+\theoremstyle{plain}
+\newtheorem*{theorem}{Twierdzenie}
+
 \theoremstyle{definition}
 \newtheorem*{definition}{Definicja}
+\newtheorem*{corollary}{Wniosek}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Uwaga}
+
+% Proof style
+\expandafter\let\expandafter\oldproof\csname\string\proof\endcsname
+\let\oldendproof\endproof
+\renewenvironment{proof}[1][\proofname]{
+  \oldproof[\textsc{\small #1}]
+}{\oldendproof}
+
+\renewcommand\qedsymbol{\small{$ \blacksquare $}}
 
 % Document meta
 \title{Funkcje analityczne}
@@ -35,19 +56,222 @@
 \vspace{0.1cm}
 {\Large Notatki z semestru zimowego 2018/2019\par}
 
+% TODO: Lemat Jordana (do poprzedniej sekcji)
+
 \section{Szeregi o wyrazach zespolonych}
 
 \begin{definition}
   Szereg zespolony $\sum_{n=1}^{\infty} a_{n}$ jest zbieżny do sumy $ s \in \mathbb{C} $ wtedy i tylko wtedy, gdy $ \sum_{n=1}^{k} a_{n} $ ma granicę $ s $ przy $ k\to\infty $.
 \end{definition}
 
-\begin{definition}[Granica szeregu funkcyjnego]
+\begin{definition}[Jednostajna zbieżność szeregu funkcyjnego]
   Niech $ K \subset \extcomplex $ będzie dowolnym zbiorem. Niech $ f_{n} \colon K \to \mathbb{C} $, $ \norm{f}_{K} = \sup_{K}\abs{f(z)} $. Wówczas $ (f_{n}) $ jest zbieżny jednostajnie do $ f $ wtedy i tylko wtedy, gdy
-  $$ \lim_{k\to\infty} \norm{f - \sum_{n=1}^{k} f_{n}}_{K} = 0 $$.
+  $$ \lim_{k\to\infty} \norm{f - \sum_{n=1}^{k} f_{n}}_{K} = 0. $$
 \end{definition}
 
-% TODO: Własność: całkowanie szeregu jednostajnie zbieżnego
-% TODO: Właśność: Kryterium Weierstrassa jednostajnej zbieżności
-% TODO: Twierdzenie o rozwijaniu funkcji holomorficznej w szereg potęgowy
- 
+\begin{theorem}[Całkowanie szeregu jednostajnie zbieżnego]
+  Niech $ \gamma \colon I \to \mathbb{C} $ droga kawałkami gładka, $ f_{n} \colon \gamma(I) \to \mathbb{C} $, a szereg $ \sum f_{n}(z) $ jednostajnie zbieżny na $ \gamma(I) $. Wtedy suma $ f(z) = \sum f_{n}(z) $ też jest ciągła na $ \gamma(I) $ oraz $ \int_{\gamma} f(z) dz = \sum (\int_{\gamma} f_{n}(z) dz) $.
+\end{theorem}
+
+\begin{theorem}[Kryterium Weierstrassa jednostajnej zbieżności]
+  Niech $ K \subset \extcomplex $, $ f_{n} \colon K \to \mathbb{C} $. Szereg $ \sum f_{n}(z) $ jest jednostajnie zbieżny na $ K $, jeśli istnieją takie liczby $ c_{n} $, że $ \norm{f_n(z)}_K \leq c_{n} $ oraz szereg $ \sum c_{n} $ jest zbieżny.
+\end{theorem}
+
+\begin{theorem}[Rozwijanie funkcji holomorficznej w szereg Taylora]
+  Niech $ f $ będzie holomorficzna w obszarze $ D $ oraz $ K(a, R) \subset D $. Wówczas istnieje szereg postaci $ \sum_{n = 0}^{\infty} c_{n}(z-a)^{n} $, zbieżny do f(z) wewnątrz koła $ K(a, R) $. Szereg nazywamy szeregiem Taylora
+\end{theorem}
+
+\begin{proof}
+  % TODO: Obrazek
+  Całkujemy po koncentrycznych okręgach wewnątrz koła $ K(a, R) $.
+  \begin{align*}
+    f(z) &
+    = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{\zeta-z} d\zeta
+    = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{\zeta-a-(z-a)} d\zeta \\ &
+    = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{\zeta-a} \cdot \frac{1}{1 - \frac{z-a}{\zeta-a}} d\zeta
+    = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{\zeta-a} \cdot \sum_{n=0}^{\infty} \frac{(z-a)^{n}}{(\zeta-a)^{n}} d\zeta = (*)
+  \end{align*}
+  Korzystamy z kryterium Weierstrassa. Zauważmy, że
+  $
+    \abs{\frac{f(\zeta)}{\zeta-a} \cdot \frac{(z-a)^{n}}{(\zeta-a)^{n}}}
+    < \frac{M}{r} \cdot \abs{\frac{z-a}{r}}^n
+    < \frac{M}{r} \cdot 1
+  $
+  . Możemy więc całkować wyraz po wyrazie.
+  \begin{align*}
+    (*) &
+    \eqtext{W} \sum_{n=0}^{\infty} \left( \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{(\zeta-a)^{n+1}} d\zeta \right)(z-a)^{n}
+    = \sum_{n = 0}^{\infty} c_{n}(z-a)^{n}
+  \end{align*}
+  Współczynniki $ c_{n} $ są następującej postaci:
+  $$
+    c_{n} = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{(\zeta-a)^{n+1}} d\zeta
+  $$
+\end{proof}
+
+\begin{corollary}[Nierówność Cauchy'ego]
+  Niech $ M(r) = \max_{\abs{z-a} = r < R} \abs{f(z)} $. Wówczas zachodzi nierówność
+  $$ \abs{c_{n}} = \abs{ \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{(\zeta-a)^{n+1}} d\zeta } \leq \frac{1}{2 \pi} \cdot \frac{M(r)}{r^{n+1}} \cdot 2 \pi r = \frac{M(r)}{r^n} $$
+\end{corollary}
+
+\begin{definition}
+  Funkcja $ f $ jest całkowita wtedy i tylko wtedy gdy jest holomorficzna na $ \mathbb{C} $.
+\end{definition}
+
+\begin{theorem}[Liouville'a]
+  Każda funkcja całkowita i ograniczona jest stała.
+\end{theorem}
+
+\begin{proof}
+  Wnioskujemy z nierówności Cauchy'ego: wybraliśmy dowolne $ z $ i mamy $ \abs{z-a} = r > 0 $. Możemy więc wybrać taki ciąg $ z $, że $ r \to \infty $, a stąd wszystkie $ c_{n} = 0 $. 
+\end{proof}
+
+\begin{corollary}
+  Każda funkcja holomorficzna na $ \extcomplex $ jest stała.
+\end{corollary}
+
+\begin{theorem}
+  Niech $ c_{n} $ - dowolny ciąg liczb zespolonych. Szereg $ \sum_{n=0}^{\infty} c_{n}(z-a)^{n} $ ma promień zbieżności $ R = \frac{1}{\limsup \sqrt[n]{\abs{c_{n}}}} $, z uwzględnieniem $ 0 $ i $ \infty $.
+\end{theorem}
+
+\begin{theorem}
+  Szereg potęgowy $ \sum c_{n}(z-a)^{n} $ o promieniu zbieżności $ R $ jest 
+  \begin{enumerate}
+    \item zbieżny dla każdej liczby $ z \in K(a, R) $; \label{prom-zbieznosci-zbieznosc}
+    \item zbieżny jednostajnie na każdym zwartym podzbiorze $ K \subset K(a, R) $; \label{prom-zbieznosci-zbieznosc-jedn}
+    \item rozbieżny dla każdej liczby $ z \in C \backslash \closure{K(a, R)} $. \label{prom-zbieznosci-rozbieznosc}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Przyjmijmy $ 0 < R < \infty $. Wtedy $ \limsup \sqrt[n]{\abs{c_n}} = \frac{1}{R} $.
+
+  \begin{enumerate}
+    \item[\ref{prom-zbieznosci-zbieznosc}]
+    Niech $ z \in K(a, R) $, wtedy $ \abs{z-a} < R $. Z def. granicy górnej 
+    $ \forall \epsilon > 0 \enskip \exists n_0 \enskip \forall n \geq n_0 \enskip \sqrt[n]{\abs{c_n}} < \frac{1+\epsilon}{R} $.
+    Dobierzmy taki $ \epsilon $, że $ \frac{1+\epsilon}{R} \cdot \abs{z-a} = q < 1 $.
+    Wtedy $ \abs{ c_n(z-a)^n } < \frac{(1+\epsilon)^n}{R^n}(z-a)^n = q^n $ dla $ n \geq n_0 $ i szereg jest zbieżny z kryterium Weierstrassa.
+
+    \item[\ref{prom-zbieznosci-zbieznosc-jedn}]
+    Niech $ K \subset K(a, R) $ - zbiór zwarty.
+    Przyjmijmy $ r = max_{z \in K}\abs{z-a} $.
+    Mamy $ r < R $, bo $ K $ zwarty i ma skończone pokrycie kołami o promieniu $ \rho < R $.
+    Dobieramy $ \epsilon > 0 $ tak, że $ \frac{r}{R}(1+\epsilon) = q < 1 $.
+    Wtedy szereg zbieżny na K (tak jak w \ref{prom-zbieznosci-zbieznosc}), więc zbieżny jednostajnie.
+
+    \item[\ref{prom-zbieznosci-rozbieznosc}]
+    Niech $ z \in C \backslash \closure{K(a, R)} $.
+    $ \forall \epsilon > 0 $ istnieje ciąg indeksów naturalnych $ (n_k) $, $ n_k \to \infty $ taki, że dla $ n \geq n_0 $ mamy $ \sqrt[n]{\abs{c_n}} > \frac{1-\epsilon}{R} $
+    Dobieramy $ \epsilon $ tak/, żeby $ \frac{1-\epsilon}{R}\abs{z-a} = q > 1 $.
+    Wtedy szereg jest rozbieżny, bo podciąg o indeksach $ n_k $ nie zbiega do $ 0 $.
+  \end{enumerate}
+\end{proof}
+
+\begin{remark}
+  Na brzegu okręgu zbieżności, $ C(a, R) $, szereg może być zbieżny lub nie w każdym punkcie pojedynczo.
+\end{remark}
+
+\begin{corollary}[Jednoznaczność rozwinięcia w szereg Taylora]
+  Jeśli funkcja f jest holomorficzna w kole $ K(a, R) $ i jest zadana w tym kole zbieżnym szeregiem potęgowym $ f(z) = \sum c_n(z-a)^n $, to ten szereg jest szeregiem Taylora funkcji f.
+\end{corollary}
+
+\begin{proof}
+  Rozważmy dwa szeregi o współczynnikach $ b_n $ i $ c_n $, które są rozwinięciami $ f(z) $.
+  Dla każdej liczby $ k = 0, 1, 2\dots $ i każdego $ \rho \in (0, r) $ szereg $ \frac{1}{(z-a)^{k+1}} \sum_{n=0}^{\infty} c_{n}(z-a)^n = \frac{f(z)}{(z-a)^{k+1}} $ jest zbieżny jednostajnie na okręgu o promieniu $ \rho $.
+  Całkujemy po tym okręgu wyraz po wyrazie i dostajemy równość $ 2 \pi i b_n = 2 \pi i c_n $, więc współczynniki muszą być równe.
+\end{proof}
+
+\begin{theorem}
+  Suma szeregu potęgowego $ f(z) = \sum_{n=0}^{\infty} c_{n}(z-a)^{n} $ jest funkcją holomorficzną w swoim kole zbieżności.
+  Pochodna $ f'(z) $ jest sumą szeregu otrzymanego przez różniczkowanie szeregu wyraz po wyrazie.
+\end{theorem}
+
+\begin{proof}
+  Niech $ R>0 $ - promień zbieżności szeregu. Rozważmy $ g(z) = \sum_{n=1}^{\infty} nc_{n}(z-a)^{n-1} $.
+  Zachodzi $ \lim_{n \to \infty} \sqrt[n]{n} = 1 $, więc $ g $ również ma promień zbieżności $ R $.
+
+  Stąd $ g $ jest zbieżna w $ K(a, R) $ i jednostajnie zbieżna na jego podzbiorach zwartych.
+  Stąd $ g $ spełnia warunki tw. o istnieniu funkcji pierwotnej:
+  jest ciągła
+  i całka z $ g $ po brzegu każdego trójkąta $ \subset K(a, R) $ jest zerowa (całkujemy wyraz po wyrazie, każdy z nich zerowy po brzegu z tw. Cauchy'ego).
+
+  Funkcja pierwotna $ f_0(z) = \int_{a}^{z} g(\zeta) d\zeta $ jest holomorficzna w $ K(a, R) $ i $ f'_0 = g $.
+  Całkując $ g $ wyraz po wyrazie dostajemy $ f_0 - g = c_0 $, więc f jest funkcją holomorficzną w $ K(a, R) $ i $ f' = g $.
+\end{proof}
+
+\begin{corollary}
+  Niech $ f $ holomorficzna w obszarze $ D \subset \mathbb{C} $. Wówczas $ f $ ma pochodne wszystkich rzędów w $ D $.
+  $ f^{(n)} $ można otrzymać przez $ n $-krotne różniczkowanie szeregu Taylora.
+\end{corollary}
+
+\begin{theorem}
+  Nieh $ f(z) = \sum_{n=1}^{\infty} c_{n}(z-a)^{n} $ holomorficzna w kole $ K(a, R) $.
+  Wtedy $ c_{n} = \frac{f^{(n)}(a)}{n!} $.
+\end{theorem}
+
+\begin{proof}
+  Różniczkujemy szereg Taylora i podstawiamy $ z = a $.
+\end{proof}
+
+\begin{theorem}[Wzór całkowy Cauchy'ego dla pochodnych]
+  Niech $ \closure{D} \subset G \subset \mathbb{C} $, gdzie $ D $, $ G $ dowolne obszary.
+  Niech $ f $ holomorficzna na $ G $.
+  Wtedy
+  $$ \Forall{n \in \mathbb{N}_0} \Forall{a \in D} f^{(n)} = \frac{n!}{2 \pi i} \int_{\partial D} \frac{f(\zeta}{(\zeta - a)^{n+1}} d\zeta $$
+\end{theorem}
+
+\begin{proof}
+  Ustalmy $ a \in D $ i niech $ \closure{K(a, r)} \subset D $, $ r < R $.
+  Współczynniki $ c_n $ możemy przedstawić na dwa sposoby:
+  $$
+    c_n = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{(\zeta-a)^{n+1}} d\zeta
+    \qquad \textnormal{oraz} \qquad
+    c_n = \frac{f^{(n)}}{n!}
+  $$
+  Po przyrównaniu stronami dostajemy
+  $$
+    f^{(n)} = \frac{n!}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{(\zeta-a)^{n+1}} d\zeta
+  $$
+  Na mocy tw. Cauchy'ego możemy zmienić drogę całkowania z $ C(a, r) $ na $ \partial D $.
+\end{proof}
+
+\begin{theorem}[Morery]
+  Jeśli $ f $ ciągła w obszarze $ D $, oraz
+  całka po brzegu dowolnego trójkąta $ \closure{\bigtriangleup} \subset D $ jest zerowa,
+  to $ f $ jest holomorficzna.
+\end{theorem}
+
+\begin{proof}
+  Wystarczy wykazać holomorficzność w doowlnym kole $ U \subset D $.
+  Z lematu o istnieniu funkcji pierwotnej w kole wynika, że $ f $ ma funkcję pierwotną $ F $.
+  Z wniosku o pochodnych szeregu Taylora $ F $ jest holomorficzna, więc $ f $ jest holomorficzna w $ U $.
+\end{proof}
+
+\begin{corollary}[Warunki równoważne holomorficzności funkcji f w punkcie $ a \in C $]
+  $ $
+  \begin{enumerate}
+    \item $ f $ ma pochodną zespoloną w otoczeniu punktu $ a $; \label{war-holo-pochodna}
+    \item $ f $ jest analityczna w $ a $, tzn. rozwija się w szereg potęgowy zbieżny w otoczeniu punktu $ a $; \label{war-holo-anal}
+    \item $ f $ jest ciągła w otoczeniu $ U $ punktu $ a $ i całka z $ f $ po brzegu dowolnego trójkąta w $ U $ jest równa $ 0 $. \label{war-holo-troj}
+  \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+  $ $
+  \begin{enumerate}[leftmargin=5.1em]
+    \item[\ref{war-holo-pochodna} $ \Rightarrow $ \ref{war-holo-anal}]%\ref{war-holo-pochodna} \implies \ref{war-holo-anal}]
+    Twierdzenie o rozwijaniu w szereg potęgowy;
+
+    \item[\ref{war-holo-anal} $ \Rightarrow $ \ref{war-holo-pochodna}]
+    Twierdzenie o holomorficzności sumy szeregu potęgowego;
+
+    \item[\ref{war-holo-pochodna} $ \Rightarrow $ \ref{war-holo-troj}]
+    Lemat Goursata lub twierdzenie Cauchy’ego;
+
+    \item[\ref{war-holo-troj} $ \Rightarrow $ \ref{war-holo-pochodna}]
+    Twierdzenie Morery.
+  \end{enumerate}
+\end{proof}
+
 \end{document}
