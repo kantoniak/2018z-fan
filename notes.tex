@@ -425,4 +425,53 @@
   Skoro $ \abs{g(z)} = 1 $, to $ g(z) = e^{it} $.
 \end{proof}
 
+\begin{definition}[Niemal jednostajna zbieżność szeregu funkcyjnego]
+  Szereg $ \sum f_{n} $ jest zbieżny niemal jednostajnie na obszarze $D$ wtedy i tylko wtedy gdy jest zbieżny jednostajnie na każdym zwartym podzbiorze $D$.
+\end{definition}
+
+\begin{theorem}[Weierstrassa o szeregach funkcji holomorficznych]
+  Niech szereg funkcji holomorficznych $ \sum_{n=1}^{\infty} f_n(z) $ będzie niemal jednostajnie zbieżny na obszarze D. Wtedy
+
+  \begin{enumerate}
+    \item $ f(z) = \sum_{n=1}^{\infty} f_n(z) $ jest holomorficzna na $ D $; \label{weierstrass-holo-f}
+    \item $ \forall k \in \mathbb{N}\enskip f^{(k)}(z) = \sum_{n=1}^{\infty} f_n^{(k)}(z) $; \label{weierstrass-holo-pochodne}
+    \item $ \forall k \in \mathbb{N}\enskip \sum_{n=1}^{\infty} f_n^{(k)}(z) $ zbieżny niemal jednostajnie na $D$; \label{weierstrass-holo-pochodne-zb}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Rozważmy dwa koła wokół dowolnego punktu $a$.
+  Koła są współśrodkowe i zawierają się w $D$.
+  $ U = K(a, r) $, $ V = K(a, R) $, $ 0 < r < R $, $ \closure{U} \subset V $, $ \closure{V} \subset D $.
+
+  \begin{enumerate}
+    % TODO: Obrazek
+
+    \item[\ref{weierstrass-holo-f}]
+    Rozważamy tylko pojedyncze koło $U$.
+    Z niejednostajnej zbieżności f jest ciągła i zbieżna jednostajnie na zwartym $ \closure{U} $.
+    Stąd dla każdego trójkąta $ \closure{\bigtriangleup} \subset U $ mamy
+    $$
+      \int_{\partial \bigtriangleup} f(z)dz =
+      \sum_{n=1}^{\infty}\int_{\partial \bigtriangleup} f_n(z)dz =
+      \sum_{n=1}^{\infty} 0 =
+      0
+    $$
+    Stąd z tw. Morery $ f \in H(U) $, a z dowolności $ U $ mamy $ f \in H(D) $.
+
+    \item[\ref{weierstrass-holo-pochodne}]
+    Korzystamy dwukrotnie ze wzoru całkowego Cauchy'ego dla pochodnych:
+    \begin{align*}
+      \Forall{k \in \mathbb{N}} f^{(k)}(z) &
+      \eqtext{C} \frac{k!}{2 \pi i} \int_{\partial V} \frac{f(\zeta)}{(\zeta - z)^{k+1}} d\zeta \\ &
+      \eqtext{Z} \sum_{n=1}^{\infty} \frac{k!}{2 \pi i} \int_{\partial V} \frac{f_n(\zeta)}{(\zeta - z)^{k+1}} d\zeta \\ &
+      \eqtext{C} \sum_{n=1}^{\infty} f_n^{(k)}(z)
+    \end{align*}
+    Przejście Z możemy zastosować bo mianownik w funkcji podcałkowej jest ogarniczony z dołu, więc cały ułamek zbieżny jednostajnie.
+
+    \item[\ref{weierstrass-holo-pochodne-zb}]
+    TBD
+  \end{enumerate}  
+\end{proof}
+
 \end{document}
