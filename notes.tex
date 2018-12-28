@@ -288,4 +288,141 @@
   \end{enumerate}
 \end{proof}
 
+\begin{theorem}
+  Niech $ f \neq const $ funkcja holomorficzna w punkcie $ a \in \mathbb{C} $.
+  Niech $ f(a) = 0 $.
+  Wtedy w pewnym otoczeniu $ U $ punktu $ a $ funkcję $ f $ można przedstawić jako $ f(z) = (z-a)^{n}g(z) $,
+  gdzie $ g \in H(U) $, $ g(a) \neq 0 $.
+\end{theorem}
+
+\begin{proof}
+  Korzystamy z postaci szeregu Taylora:
+  $$ f(z) = \sum_{n=0}^{\infty} c_n(z-a)^n $$
+  Mamy $ f(a) = 0 \Rightarrow c_0 = 0 $, więc z szeregu możemy wyciągnąć przynajmniej jedno $ (z-a) $.
+  $$ f(z) = (z-a)^m \sum_{n=m}^{\infty} c_n(z-a)^{n-m} $$
+  Dostajemy $ g(z) = \sum_{n=m}^{\infty} c_n(z-a)^{n-m} $, $ g(a) \neq 0 $.
+\end{proof}
+
+\begin{definition}
+  Używaną w poprzednim twierdzeniu liczbę
+  \begin{align*}
+    n &
+    = \min \{m \geq 1: c_m \neq 0\} \\ &
+    = \min \{m \geq 1: f^{(m)}(a) \neq 0\}
+  \end{align*}
+  nazywamy krotnością zera $ a $ funkcji holomorficznej $ f $.
+\end{definition}
+
+\begin{corollary}
+  Jeśli $ f $ jest holomorficzna w otoczeniu zawierającym $ a $, to
+  albo $ f \equiv 0 $ w otoczeniu $ a $,
+  albo $ f(z) \neq 0 $ w pewnym otoczeniu $ a $.
+\end{corollary}
+
+% TODO: Dowód
+
+\begin{theorem}[O jednoznaczności]
+  Niech $f$, $g$ holomorficzne w obszarze $D$.
+  Niech $(z_n)$ pewien ciąg o wyrazach w $D$, mający punkt skupienia $a$ w $D$.
+  Niech $ f(z_n) = g(z_n) $.
+  Wówczas $f$ i $g$ są identyczne na $D$.
+\end{theorem}
+
+\begin{proof}
+  Niech $ U \subset D $ pewne otoczenie $ a $.
+  Niech $ A = \{ z \in U: f(z) = g(z) \} $.
+  $ A $ jest otwarty (z definicji). % TODO: Dlaczego dokładnie?
+  $ A $ jest domknięty (z poprzedniego wniosku jeśli $ a_0 \in D $ punkt skupienia $ A $, to $ f(a_0) = g(a_0) \Rightarrow a_0 \in A $).
+  Punkt skupienia $ a \in A $, więc $ A $ niepusty.
+  $ D $ jest spójny, więc $ A = D $.
+\end{proof}
+
+\begin{theorem}[Zasada maksimum]
+  Niech $ f $ funkcja holomorficzna w obszarze $ D $.
+  Jeśli $ \max_D \abs{f(z)} $ jest osiągane wewnątrz $ D $, to $ f $ jest stała.
+\end{theorem}
+
+\begin{proof}
+  Niech $ \abs{f(a)} = g = \sup_{z \in D} \abs{f(z)} $. Całkujemy po okręgach w otoczeniu $ a $.
+  \begin{align*}
+    0 &
+    = \abs{f(a)} - g
+    = \abs{ \frac{1}{2 \pi} \int_{0}^{2 \pi} f(a + re^{it}) dt } - g
+    \leq \frac{1}{2 \pi} \int_{0}^{2 \pi} \abs{f(a + re^{it})} dt - g
+    \leq \frac{1}{2 \pi} \int_{0}^{2 \pi} g dt - g = 0
+  \end{align*}
+  Stąd mamy
+  \begin{align*}
+    0 &
+    = g - \frac{1}{2 \pi} \int_{0}^{2 \pi} \abs{f(a + re^{it})} dt
+    = \frac{1}{2 \pi} \int_{0}^{2 \pi} (g - \abs{f(a + re^{it})}) dt
+  \end{align*}
+  Funkcja podcałkowa jest ciągła i nieujemna, więc żeby zachować równość musi być $ g = \abs{f(a +re^{it})} $ na całym okręgu.
+
+  Z dowolności $ r $ na całym kole jest $ g = \abs{f(z)} $.
+  Żeby zachodziły warunki Cauchy’ego-Riemanna, to $ f $ musi być stała na $ D $.
+  Z tw. o jednoznaczności $ f(z) = g $ na całym $ D $.
+\end{proof}
+
+\begin{corollary}
+  Funkcja $f$ holomorficzna w obszarze ograniczonym $D$ i ciągła w $D$ osiąga maksimum modułu na brzegu $\partial D$ obszaru $D$.
+\end{corollary}
+
+\begin{proof}
+  Dla funkcji stałej teza zachodzi.
+  Niech $ f \neq const $.
+  Wtedy $ \max\abs{f(z)} $ nie należy do wnętrza $D$, więc leży na brzegu.
+\end{proof}
+
+\begin{theorem}[Lemat Schwarza]
+  Niech $ f $ funkcja holomorficzna w kole $ K(0, R) $.
+  Jeśli $ f(0) = 0 $ oraz $ \forall z \in D\enskip\abs{f(z)} \leq M $, to
+  $$
+    \abs{f'(0)} \leq \frac{M}{R}
+    \qquad \textnormal{oraz} \qquad
+    \abs{f(z)} \leq \frac{M}{R}\abs{z}
+  $$
+  Ponadto, równość zachodzi wtedy i tylko wtedy, gdy $ f $ jest postaci
+  $$
+    f(z) = \frac{M}{R}e^{it}z
+  $$
+\end{theorem}
+
+\begin{proof}
+  Bez utraty ogólności możemy dowodzić dla $ M = 1 $, $ R = 1 $.
+
+  Z $ f(0) = 0 \Rightarrow f(z) = z \cdot g(z) $, gdzie $g$ jest holomorficzna w kole $ K(0,1) $.
+  Stosujemy zasadę maksimum dla $ g(z) $, $ r < R = 1 $.
+  $$
+    \max_{z \in \closure{K(0, r)}} \abs{g(z)} =
+    \max_{z \in C(0, r)} \abs{g(z)}
+    \leq \max_{z \in C(0, r)} \frac{\abs{f(z)}}{\abs{z}}
+    \leq \frac{1}{r}
+  $$
+  Przy $ r \to 1 $ dostajemy $ max_{z \in \closure{K(0, r)}} \abs{g(z)} \leq 1 $.
+  Stąd
+  $$
+    \Forall{z \in K(0, r)} 1 \geq \abs{g(z)}
+    = \frac{\abs{f(z)}}{\abs{z}}
+    \qquad \implies \qquad
+    \abs{f(z)} \leq \abs{z}
+  $$
+  co dowodzi jednej nierówności z twierdzenia.
+  Dla pochodnej mamy
+  $$
+    f(z) = zg(z)
+    \quad\Rightarrow\quad
+    f'(z) = g(z) + zg'(z)
+    \quad\Rightarrow\quad
+    f'(0) = g(0)
+    \quad\Rightarrow\quad
+    \abs{f'(0)} = \abs{g(0)}
+    \leq 1
+  $$
+
+  Jeśli $ \abs{f(z_0)} = \abs{z_0} $ dla pewnego $ z_0 \neq 0 $, to $ \abs{g(z_0)} = 1 $.
+  Czyli $ g $ osiąga maksimum wewnątrz $ K(0, 1) $, więc z zasady maksimum jest stała.
+  Skoro $ \abs{g(z)} = 1 $, to $ g(z) = e^{it} $.
+\end{proof}
+
 \end{document}
