@@ -279,7 +279,7 @@
 \begin{proof}
   $ $
   \begin{enumerate}[leftmargin=5.1em]
-    \item[\ref{war-holo-pochodna} $ \Rightarrow $ \ref{war-holo-anal}]%\ref{war-holo-pochodna} \implies \ref{war-holo-anal}]
+    \item[\ref{war-holo-pochodna} $ \Rightarrow $ \ref{war-holo-anal}]
     Twierdzenie o rozwijaniu w szereg potęgowy;
 
     \item[\ref{war-holo-anal} $ \Rightarrow $ \ref{war-holo-pochodna}]
@@ -598,6 +598,132 @@
     = -c_{-(m+1)}
   $$
   Więc całka $ I_2 $ jest równa części głównej szeregu Laurenta.
+\end{proof}
+
+\begin{theorem}
+  Niech $f$, $g$ fukcje holomorficzne w pierścieniu $V$.
+  Niech $ f(z) = \sum_{n=-\infty}^{\infty} b_n(z-a)^n $, $ g(z) = \sum_{n=-\infty}^{\infty} c_n(z-a)^n $.
+  Wtedy szeregi $ d_n = \sum_{m=-\infty}^{\infty} b_{m}c_{n-m} = \sum_{m=-\infty}^{\infty} c_{m}b_{n-m} $ są zbieżne $ \forall n \in \mathbb{Z} $
+  oraz $ f(z) \cdot g(z) = \sum_{n=-\infty}^{\infty} d_n(z-a)^n $.
+\end{theorem}
+
+\begin{proof}
+  Funkcja $ fg $ jest holomorficzna w $V$, więc jest sumą pewnego szeregu Laurenta w $V$.
+  Współczynniki są równe
+  $$
+    d_n =
+    \frac{1}{2 \pi i} \int_{C(a, \rho)} \frac{f(\zeta)g(\zeta)}{(\zeta - a)^{n+1}} d\zeta,
+    \qquad
+    r < \rho < R
+  $$
+
+  Na $ C(a, \rho) $ szereg Laurenta $ f $ jest do niej jednostajnie zbieżny, więc możemy podstawić szereg pod $f$:
+  \begin{align*}
+    d_n &
+    = \frac{1}{2 \pi i} \int_{C(a, \rho)} \left[ \sum_{m=-\infty}^{\infty} b_m(\zeta - a)^m \right] g(\zeta) (\zeta - a)^{-n-1} d\zeta \\ &
+    = \sum_{m=-\infty}^{\infty} b_m \left[ \frac{1}{2 \pi i} \int_{C(a, \rho)} g(\zeta) (\zeta - a)^{m-n-1} d\zeta \right] \\ &
+    = \sum_{m=-\infty}^{\infty} b_{m}c_{n-m}
+  \end{align*}
+
+  Dowód dla drugiej sumy analogiczny, podstawiamy pod $g$.
+\end{proof}
+
+\begin{theorem}
+  Niech $ n \in \mathbb{Z} $ i $ c_n $ dowolne liczby zespolone.
+  Weźmy $ r = \limsup \sqrt[n]{c_{-n}} $, $ R = \frac{1}{ \limsup \sqrt[n]{c_{-n}} } $.
+  Wówczas szereg Laurenta $ f(z) = \sum_{n=-\infty}^{\infty} c_n(z-a)^{n} $ jest zbieżny bezwzględnie i niemal jednostajnie w pierścieniu $ \{ z \in \mathbb{C}: r < \abs{z-a} < R \} $,
+  $ f(z) $ jest holomorficzna w tym pierścieniu oraz
+  $$
+    c_n = \frac{1}{2 \pi i} \int_{C(a, \rho)} \frac{f(\zeta)}{(\zeta - a)^{n+1}} d\zeta,
+    \quad
+    n \in \mathbb{Z},
+    \quad
+    r < \rho < R
+  $$
+
+  Jeśli $ \abs{z-a} < r $, to część główna jest rozbieżna.
+  Jeśli $ \abs{z-a} > R $, to część regularna jest rozbieżna. 
+\end{theorem}
+
+\begin{proof}
+  Zbieżność dowodzimy z tw. Cauchy'ego-Hadamarda. Rozważamy dwa szeregi i patrzymy na ich promienie zbieżności:
+  $$
+    f_1(z) = \sum_{n=0}^{\infty} c_n(z-a)^{n},
+    \quad
+    f_2(z) = \sum_{n=-\infty}^{-1} c_n(z-a)^{n} = \sum_{m=1}^{\infty} c_n \left(\frac{1}{z-a}\right)^{m} = \sum_{m=1}^{\infty} c_n Z^m
+  $$
+  Funkcja $ f_1 $ holomorficzna w kole $ \abs{z-a} < R $, $ f_2 $ w $ \abs{Z} < r^{-1} $, tzn. $ \abs{z-a} > r $.
+
+  % TODO: Dowód na postać c_n
+\end{proof}
+
+\begin{remark}
+  Dla funkcji holomorficznej w pierścieniu zachodzą nierówności Cauchy'ego, tak jak na kole.
+\end{remark}
+
+% TODO: Uwaga 6 z wykładu 8 w notatkach (o szeregu Fouriera)
+
+\subsection{Punkty osobliwe}
+
+\begin{definition}
+  Punkt $ a \in \extcomplex $ nazywa się punktem osobliwym funkcji $f$ wtedy i tylko wtedy,
+  gdy funkcja $f$ nie jest holomorficzna w $a$,
+  a w każdym otoczeniu punktu $a$ istnieje punkt, w którym funkcja $f$ jest holomorficzna.
+\end{definition}
+
+\begin{remark}
+  Mowa jest tu o funkcjach przyjmujących wartości w $ \mathbb{C} $, a nie o przekształceniach z wartościami w $ \extcomplex $.
+  Jeśli nawet funkcja $ f: U \to \mathbb{C} $ rozszerza się do przekształcenia $ F: U \to \extcomplex $ holomorficznego w $a$ i takiego,
+  że $ F(a) = \infty $, to tym niemniej punkt $a$ jest punktem osobliwym funkcji $f$.
+\end{remark}
+
+\begin{definition}[Izolowane punkty osobliwe]
+  Punkt $ a \in \mathbb{C} $ nazywa się izolowanym punktem osobliwym funkcji $f$,
+  jeśli funkcja $f$ jest holomorficzna w pewnym otoczeniu pierścieniowym $ V = \{ z \in \mathbb{C}: 0 < \abs{z-a} < \epsilon \} $, gdzie $ \epsilon > 0 $.
+  Izolowany punkt osobliwy $a$ funkcji $f$ nazywa się:
+
+  \begin{enumerate}
+    \item punktem pozornie osobliwym, jeśli istnieje skończona granica $ \lim_{z \to a} f(z) \in \mathbb{C} $;
+    \item biegunem, jeśli istnieje granica $ \lim_{z \to a} f(z) = \infty $;
+    \item punktem istotnie osobliwym, jeśli nie istnieje granica $ \lim_{z \to a} f(z) $.
+  \end{enumerate}
+\end{definition}
+
+
+\begin{theorem}[Riemanna]
+  Niech $f$ funkcja holomorficzna w pewnym otoczeniu pierścieniowym $ V = \{ z \in \mathbb{C}: 0 < \abs{z-a} < \epsilon \} $.
+  Następujące warunki są równoważne:
+
+  \begin{enumerate}
+    \item $ a $ jest punktem pozornie osobliwym funkcji $ f $; \label{tw-riemanna-poz}
+    \item $ f $ jest ograniczona w pewnym otoczeniu pierścieniowym  $ V' = \{ z \in \mathbb{C}: 0 < \abs{z-a} < \epsilon' \} $; \label{tw-riemanna-ogr}
+    \item część główna szeregu Laurenta jest zerowa; \label{tw-riemanna-gl-zerowa}
+    \item można określić wartość $ f(a) $ w taki sposób, aby otrzymać funkcję holomorficzną w całym kole $ K(0, \epsilon) $. \label{tw-riemanna-dookreslenie}
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  $ $
+  \begin{enumerate}[leftmargin=5.1em]
+    \item[\ref{tw-riemanna-poz} $ \Rightarrow $ \ref{tw-riemanna-ogr}]
+    Z definicji
+
+    \item[\ref{tw-riemanna-ogr} $ \Rightarrow $ \ref{tw-riemanna-gl-zerowa}]
+    Korzystamy z nierówności Cauchy’ego:
+    $$
+      c_{n} =  \frac{1}{2 \pi i} \int_{C(a, \rho)} \frac{f(\zeta)}{(\zeta-a)^{-n+1}} d\zeta
+      \qquad\implies\qquad
+      \abs{ c_n } \leq \frac{M}{\rho^{-n}} = M\rho^n \to 0
+    $$
+    Stąd $ \abs{c_n} = 0 $.
+
+    \item[\ref{tw-riemanna-gl-zerowa} $ \Rightarrow $ \ref{tw-riemanna-dookreslenie}]
+    $ f $ jest opisana szeregiem Taylora $ f(z) = \sum_{n=0}^{\infty} c_n(z-a)^n $.
+    Możemy dookreślić $ f(a) = c_0 $ i wtedy szereg działa również w punkcie $ z = a $.
+
+    \item[\ref{tw-riemanna-dookreslenie} $ \Rightarrow $ \ref{tw-riemanna-poz}]
+    Oczywistość
+  \end{enumerate}
 \end{proof}
 
 \end{document}
