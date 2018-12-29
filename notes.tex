@@ -430,7 +430,7 @@
 \end{definition}
 
 \begin{theorem}[Weierstrassa o szeregach funkcji holomorficznych]
-  Niech szereg funkcji holomorficznych $ \sum_{n=1}^{\infty} f_n(z) $ będzie niemal jednostajnie zbieżny na obszarze D. Wtedy
+  Niech szereg funkcji holomorficznych (na $D$) $ \sum_{n=1}^{\infty} f_n(z) $ będzie niemal jednostajnie zbieżny na obszarze $D$. Wtedy
 
   \begin{enumerate}
     \item $ f(z) = \sum_{n=1}^{\infty} f_n(z) $ jest holomorficzna na $ D $; \label{weierstrass-holo-f}
@@ -470,8 +470,29 @@
     Przejście Z możemy zastosować bo mianownik w funkcji podcałkowej jest ogarniczony z dołu, więc cały ułamek zbieżny jednostajnie.
 
     \item[\ref{weierstrass-holo-pochodne-zb}]
-    TBD
+    Pokażemy, że $ \sum_{n=1}^{\infty} f_n^{(k)}(z) $ jest zbieżny jednostajnie na kole $U$.
+    Szacujemy resztę $ r_n(\zeta) = f(\zeta) - \sum_{j=1}^{n} f_j(\zeta) $
+    Korzystamy ze wzoru całkowego dla pochodnych:
+    $$
+      \abs{ f^{(k)}(z) - \sum_{j=1}^{n} f_j(z) }
+      = \frac{k!}{2 \pi} \abs{ \int_{\partial V} \frac{r_n(\zeta)}{(\zeta - z)^{(k+1)}} d\zeta }
+      \leq \frac{k!}{2 \pi} \cdot \frac{ \max_{\zeta \in \partial V} \abs{r_n(\zeta)} }{ (R - r)^{(k+1)} } \cdot 2 \pi R
+    $$
+    Końcowe wyrażenie nie zależy od $z$ i dąży do $0$ w nieskończoności.
+
+    $U$ jest zwarty, więc ma pokrycie skończone kołami $ U_1 $, $ \dots $, $ U_s $.
+    Szereg jest zbieżny na każdym z nich, więc na ich sumie też, więc również na $U$.
   \end{enumerate}  
 \end{proof}
+
+\begin{theorem}[O ciągach funkcji holomorficznych]
+  Niech $ (f_n(z)) $ ciąg funkcji holomorficznych na $D$, niemal jednostajnie zbieżny na $D$. Wtedy
+
+  \begin{enumerate}
+    \item Granica $ f(z) = \lim_{n \to \infty} f_n(z) $ jest holomorficzna na $ D $; \label{ciagi-holo-f}
+    \item $ \forall k \in \mathbb{N}\enskip f^{(k)}(z) = \lim_{n \to \infty} f_n^{(k)}(z) $; \label{ciagi-holo-pochodne}
+    \item $ \forall k \in \mathbb{N}\enskip (f_n^{(k)}(z)) $ zbieżny niemal jednostajnie na $D$; \label{ciagi-holo-pochodne-zb}
+  \end{enumerate}
+\end{theorem}
 
 \end{document}
