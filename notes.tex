@@ -232,7 +232,7 @@
   Niech $ \closure{D} \subset G \subset \mathbb{C} $, gdzie $ D $, $ G $ dowolne obszary.
   Niech $ f $ holomorficzna na $ G $.
   Wtedy
-  $$ \Forall{n \in \mathbb{N}_0} \Forall{a \in D} f^{(n)} = \frac{n!}{2 \pi i} \int_{\partial D} \frac{f(\zeta}{(\zeta - a)^{n+1}} d\zeta $$
+  $$ \Forall{n \in \mathbb{N}_0} \Forall{a \in D} f^{(n)}(a) = \frac{n!}{2 \pi i} \int_{\partial D} \frac{f(\zeta)}{(\zeta - a)^{n+1}} d\zeta $$
 \end{theorem}
 
 \begin{proof}
@@ -241,7 +241,7 @@
   $$
     c_n = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{(\zeta-a)^{n+1}} d\zeta
     \qquad \textnormal{oraz} \qquad
-    c_n = \frac{f^{(n)}}{n!}
+    c_n = \frac{f^{(n)}(a)}{n!}
   $$
   Po przyrównaniu stronami dostajemy
   $$
