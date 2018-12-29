@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+  \fill[orange!30!white] (0,0) circle (1.6);
+  \draw[orange,dashed] (0,0) circle (1.6);
+
+  \fill[blue!30!white] (0,0) circle (1.4);
+  \draw[blue,dashed] (0,0) circle (1.4);
+
+  \fill[orange!30!white] (0,0) circle (0.6);
+  \draw[blue,dashed] (0,0) circle (0.6);
+
+  \fill[white] (0,0) circle (0.4);
+  \draw[orange,dashed] (0,0) circle (0.4);
+
+  \draw (0,0) -- (-0.2828, 0.2828) node[midway, above, xshift=2, yshift=-2.2] {\footnotesize $ r $};
+  \draw (0,0) -- (-1.4782, 0.6123) node[midway, above] {\footnotesize $ R $};
+  \draw (0,0) -- (0.4243, 0.4243) node[midway, above, xshift=-2, yshift=-1.8] {\footnotesize $ s $};
+  \draw (0,0) -- (1.2934, 0.5356) node[midway, above] {\footnotesize $ t $};
+
+  \fill[darkgray] (0,0) circle (0.05) node[anchor=north, text=black] {$ a $};
+  \fill[darkgray] (-0.9,-0.6) circle (0.05) node[anchor=west, text=black] {$ z $};
+
+  \node[align=left] at (0.75,-0.75) {U};
+  \node[align=left] at (1.4,-1.4) {V};
+\end{tikzpicture}

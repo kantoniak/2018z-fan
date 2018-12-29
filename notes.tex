@@ -27,6 +27,7 @@
 \newcommand{\eqtext}[1]{\overset{\text{\tiny\sffamily #1}}{=}} % Text over equality sign
 \newcommand{\Forall}[1]{\mathop{\vcenter{\hbox{\LARGE$\forall$}}}\limits_{#1}} % Huge \forall for full-line rendering
 \setlist[enumerate]{label=(\alph*),ref=(\alph*),leftmargin=*,topsep=0.4ex,itemsep=-0.6ex,partopsep=1ex,parsep=1ex} % List margins
+\setlist[itemize]{topsep=0.4ex,itemsep=-0.6ex,partopsep=1ex,parsep=1ex} % List margins
 
 % Theorems and definitions
 \theoremstyle{plain}
@@ -84,7 +85,7 @@
 
 \begin{adjustbox}{valign=C,raise=0em,minipage={1.0\linewidth}}
 \setlength{\columnsep}{0.5cm}
-\begin{wrapfigure}{r}{4cm}
+\begin{wrapfigure}{r}{3cm}
     \vspace*{-1.5em}
     \resizebox{\linewidth}{!}{\input{holomorphic-taylor-expansion.tikz}}
 \end{wrapfigure}
@@ -498,5 +499,105 @@
     \item $ \forall k \in \mathbb{N}\enskip (f_n^{(k)}(z)) $ zbieżny niemal jednostajnie na $D$; \label{ciagi-holo-pochodne-zb}
   \end{enumerate}
 \end{theorem}
+
+\subsection{Szereg Laurenta i otoczenia pierścieniowe}
+
+\pagebreak
+
+\begin{theorem}[O rozwijaniu funkcji holomorficznej w szereg Laurenta]
+  Rozważmy pierścień $ V = \{z \in \mathbb{C}\colon r < \abs{z-a} < R\} $, $ 0 \leq r < R \leq +\infty $.
+  Niech $ f $ funkcja holomorficzna na $ V $.
+  Oznaczmy
+  $$
+    c_n = \frac{1}{2 \pi i} \int_{C(a, \rho)} \frac{f(\zeta)}{(\zeta - a)^{n+1}} d\zeta,
+    \quad
+    n \in \mathbb{Z},
+    \quad
+    r < \rho < R
+  $$
+  Wtedy
+
+  \begin{itemize}
+    \item $ c_n $ nie zależy od $ \rho $. Liczby $ c_n $ nazywamy współczynnikami szeregu Laurenta;
+    \item Szereg Laurenta, $ \sum_{n = -\infty}^{\infty} c_n(z-a)^n $, jest zbieżny do $ f(z) \enskip \forall z \in V $.
+  \end{itemize}
+
+  Szereg Laurenta dzielimy na część główną i regularną:
+  $$
+    f(z) =
+    \sum_{n = -\infty}^{\infty} c_n(z-a)^n =
+    \underbrace{\sum_{n = -\infty}^{-1} c_n(z-a)^n}_\text{\normalfont\tiny\sffamily część główna} +
+    \underbrace{\sum_{n = 0}^{\infty} c_n(z-a)^n}_\text{\normalfont\tiny\sffamily część regularna}
+  $$
+\end{theorem}
+
+\begin{proof}
+  Korzystamy z tw. Cauchy'ego.
+  Niech $ z \in V $ dowolny punkt.
+  Rozważamy pierścień $ z \in U \subset V $ o promieniach $s$, $t$.
+  Korzystamy ze wzoru całkowego na $ U $: 
+
+  \begin{adjustbox}{valign=C,raise=0em,minipage={1.0\linewidth}}
+  \setlength{\columnsep}{0.5cm}
+  \begin{wrapfigure}{r}{3cm}
+      \vspace*{-1.5em}
+      \resizebox{\linewidth}{!}{\input{holomorphic-laurent-expansion.tikz}}
+  \end{wrapfigure}
+  \strut{}
+    \vspace*{-1em}
+  
+    $$
+      f(z)
+      = \frac{1}{2 \pi i} \int_{C(a, t)} \frac{f(\zeta)}{\zeta - z} d\zeta
+      - \frac{1}{2 \pi i} \int_{C(a, s)} \frac{f(\zeta)}{\zeta - z} d\zeta
+      = I_1 - I_2
+    $$
+
+    \vspace*{0.5em}
+
+    Obliczamy całkę $ I_1 $.
+    Mamy $ \abs{z-a} < \abs{\zeta - a} $ dla $ \zeta \in C(a, t) $, więc możemy rozwijać w szereg potęgowy:
+  
+  \end{adjustbox}
+
+  \begin{align*}
+    \frac{f(\zeta)}{\zeta - z}
+    = \frac{f(\zeta)}{(\zeta - a) - (z - a)}
+    = \frac{f(\zeta)}{\zeta - a} \cdot \frac{1}{1 - \frac{z - a}{\zeta - a}} 
+    = \frac{f(\zeta)}{\zeta - a} \cdot \sum_{n=0}^{\infty} \frac{(z - a)^n}{(\zeta - a)^n}
+    = \sum_{n=0}^{\infty} \frac{f(\zeta)(z - a)^n}{(\zeta - a)^{n+1}}
+    \label{eq:laurent-int-expansion} \tag{\small $\spadesuit$}
+  \end{align*}
+
+  Skadniki sumy możemy oszacować z góry jako
+  $$
+    \abs{ \frac{f(\zeta)(z - a)^n}{(\zeta - a)^{n+1}} }
+    \leq \frac{M(t)}{t}\left(\frac{\abs{z-a}}{t}\right)^n,
+    \qquad
+    M(t) = \max_{\zeta \in C(a, t)} \abs{f(\zeta)}
+  $$
+  więc szereg \eqref{eq:laurent-int-expansion} jest zbieżny jednostajnie ze względu na $ \zeta $.
+  Stąd można całkować \eqref{eq:laurent-int-expansion} wyraz po wyrazie po $ C(a, t) $.
+
+  Obliczamy całkę $ I_2 $.
+  Teraz $ \abs{z-a} > \abs{\zeta - a} $ dla $ \zeta \in C(a, s) $ i rozwijamy odwrotnie:
+  $$
+    \frac{f(\zeta)}{\zeta - z}
+    = \frac{f(\zeta)}{(\zeta - a) - (z - a)}
+    = \frac{f(\zeta)}{z - a} \cdot \frac{1}{\frac{\zeta - a}{z - a} - 1}
+    = -\frac{f(\zeta)}{z - a} \cdot \sum_{m=0}^{\infty} \frac{(\zeta - a)^m}{(z - a)^m}
+    = -\sum_{m=0}^{\infty} \frac{f(\zeta)(\zeta - a)^m}{(z - a)^{m+1}}
+  $$
+  Całkując wyraz po wyrazie po $ C(a, s) $ dostajemy:
+  $$
+    I_2 = 
+    \sum_{m=0}^{\infty} b_m(z-a)^{-(m+1)},
+    \qquad
+    b_m =
+    -\frac{1}{2 \pi i} \int_{C(a,s)} (\zeta - a)^{m} f(\zeta) d\zeta
+    = -c_{-(m+1)}
+  $$
+  Więc całka $ I_2 $ jest równa części głównej szeregu Laurenta.
+\end{proof}
 
 \end{document}
