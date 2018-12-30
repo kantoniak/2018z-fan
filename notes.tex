@@ -726,4 +726,94 @@
   \end{enumerate}
 \end{proof}
 
+\begin{theorem}
+  Niech $f$ funkcja holomorficzna w pewnym otoczeniu pierścieniowym $ V = \{ z \in \mathbb{C}: 0 < \abs{z-a} < \epsilon \} $.
+  Punkt $a$ jest biegunem funkcji $f$ wtedy i tylko wtedy,
+  gdy część główna szeregu Laurenta $ f $ jest skończona, ale niezerowa.
+\end{theorem}
+
+\begin{proof}
+  ($\Leftarrow$) Oczywistość
+
+  ($\Rightarrow$) Z definicji bieguna $ \lim_{z \to a} f(z) = \infty $, stąd $ f(z) \neq 0 $ w pierścieniu $ V' = \{ z \in \mathbb{C}: 0 < \abs{z-a} < \epsilon' \} $.
+  Stąd $ g(z) = \frac{1}{f(z)} $ holomorficzna w $ V' $ oraz $ \lim_{z \to a} g(z) = 0 $.
+
+  Z twierdzenia Riemanna możemy uzupełnić $ g(a) = 0 $ i wtedy $ g $ holomorficzna w kole $ U' = K(a, \epsilon') $.
+  Niech $ N $ krotność zera $g$ w $a$.
+  Wtedy $  g(z) = (z-a)^{N}h(z) $, gdzie $h$ holomorficzna na $ U' $ i $ h(z) \neq 0 $ na $ U'' = K(a, \epsilon'') $.
+  Stąd $ \frac{1}{h(z)} $ rozwija się w pewien szereg $ \frac{1}{h(z)} = b_0 + b_1(z-a) + \dots $ na $ U'' $.
+  Stąd $ f(z) = \frac{b_0 + b_1(z-a) + \dots}{(z-a)^{N}} $ na pierścieniu $ V'' $.
+\end{proof}
+
+\begin{remark}
+  Liczba $ N $ j.w. nazywa się krotnością bieguna funkcji $f$ w $a$ i jest równa krotności zera $a$ funkcji $ \frac{1}{f(z)} $ w punkcie $ a $.
+  Wtedy $ c_{-N} \neq 0 $ oraz $c_k = 0$ dla $ k < -N $.
+\end{remark}
+
+\begin{corollary}
+  Funkcja $f$ holomorficzna w otoczeniu pierścieniowym $ V = \{ z \in \mathbb{C}: 0 < \abs{z-a} < \epsilon \} $ ma w tym punkcie osobliwość istotną wtedy i tylko wtedy,
+  gdy istnieje nieskończenie wiele liczb całkowitych $ n \geq 1 $ takich, że $ c_{-n} \neq 0 $.
+\end{corollary}
+
+\begin{theorem}[Casoratiego-Weierstrassa]
+  Niech $ a\in \mathbb{C} $ punkt istotnie osobliwy funkcji $ f $.
+  Niech $ A \in \extcomplex $.
+  Wówczas istnieje ciąg $ z_n \to a $ taki, że $ \lim_{n \to \infty} f(z_n) = A $.
+\end{theorem}
+
+\begin{proof}
+  ($ A = \infty $) $f$ nie jest ograniczona w żadnym otoczeniu punktu $a$, więc wybieramy punkty o coraz większych wartościach.
+
+  ($ A \in \mathbb{C} $) Jeśli w każdym otoczeniu $a$ istnieje punkt $ z $ taki, że $ f(z) = A $, to wybraliśmy ciąg.
+  Jeśli nie, to funkcja $ g(z) = \frac{1}{f(a) - A} $ ma w $ a $ izolowany punkt osobliwy.
+  Nie jest on ani pozorny, ani biegunem, bo wtedy $f$ miałaby granicę w $a$.
+  Stąd $a$ jest punktem istotnie osobliwym funkcji $g$ i stosujemy pierwszą część dowodu do $g$.
+  A gdy $ g(z_n) \to \infty $, to $ f(z_n) \to A $.
+\end{proof}
+
+\begin{remark}
+  Z definicji punktów osobliwych wynika, że $ \infty $ jest punktem pozornie osobliwym, biegunem, punktem istotnie osobliwym funkcji $f$ wtedy i tylko wtedy,
+  gdy punkt $0$ jest takim punktem dla funkcji $ f(\frac{1}{z} $. W terminach szeregu Laurenta wygląda to tak.
+\end{remark}
+
+\begin{theorem}
+  Niech $ f(z) = \sum_{n=-\infty}^{\infty} c_n z^n $, $ \abs{z} > R $.
+  Wtedy punkt $ a = \infty $ jest:
+  \begin{enumerate}
+    \item punktem pozornie osobliwym $ f \Leftrightarrow c_n = 0 \enskip\forall n \geq 1 $; \label{osobliwy-infty-poz}
+    \item biegunem $ f \Leftrightarrow \exists N \geq 1 $ taka, że $ c_N \neq 0 $ i $ c_n = 0 \enskip\forall n \geq N + 1 $; \label{osobliwy-infty-bieg}
+    \item  punktem istotnie osobliwym funkcji $ f \Leftrightarrow c_n \neq 0 $ dla nieskończenie wielu $ n \geq 1 $. \label{osobliwy-infty-ist}
+  \end{enumerate}
+  W związku z tym częścią główną szeregu Laurenta funkcji $ f $ w otoczeniu pierścieniowym nieskończoności nazywa się szereg $ \sum_{n=1}^{\infty} c_n z^n $, a częścią regularną szereg $ \sum_{n=-\infty}^{0} c_n z^n $
+\end{theorem}
+
+\begin{corollary}
+  Jeśli funkcja całkowita $f$ ma w $ \infty $ punkt pozornie osobliwy lub biegun, to jest wielomianem.
+\end{corollary}
+
+\begin{proof}
+  Niech $ P(z) = \sum_{n=1}^{\infty} c_n z^n $ część główna szeregu Laurenta w otoczeniu pierścieniowym punktu $ \infty $.
+  Wtedy $ P(z) $ jest wielomianem.
+  Wówczas $ g(z) = f(z) - P(z) $ jest całkowita i ma osobliwość pozorną w $ \infty $,
+  a stąd jest stała z tw. Liouville'a.
+\end{proof}
+
+\begin{definition}
+  Funkcja $f$ nazywa się meromorficzna w obszarze $ D \subset \extcomplex $ jeśli jedynymi jej punktami osobliwymi są (punkty pozornie osobliwe i) bieguny.
+  Z definicji bieguna wynika, że jest on izolowany, więc jest ich co najwyżej przeliczalnie wiele (bo skończenie wiele w każdym zbiorze zwartym).
+\end{definition}
+
+\begin{theorem}
+  Jeśli funkcja $f$ jest meromorficzna w $ \extcomplex $, to jest funkcją wymierną.
+\end{theorem}
+
+\begin{proof}
+  Ponieważ bieguny w $ \extcomplex $ są izolowane, to jest ich skończenie wiele.
+  Oznaczmy je $ a_1, \dots, a_n $.
+  Niech $ R_j(z) = \sum_{k=1}{n_j} c_{k} (z-a)^{-k} $, $ j = 1, \dots, n $ oznacza część główną szeregu Laurenta $ f $ w otoczeniu pierścieniowym punktu $ a_j $,
+  a $ P(z) = \sum_{k=1}^{m} c_k z^k $ część główną w otoczeniu pierścieniowym $ \infty $.
+  Wtedy funkcja $ g(z) = f(z) - (P(z) + R_1(z) + \dots + R_n(z)) $ jest holomorficzna w $ \mathbb{C} $ i ma osobliwość pozorną w $ \infty $,
+  więc jest stała na mocy tw. Liouville'a.
+\end{proof}
+
 \end{document}
