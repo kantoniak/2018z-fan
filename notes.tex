@@ -26,6 +26,7 @@
 \newcommand{\extcomplex}{\overline{\mathbb{C}}} % Extended complex plane
 \newcommand{\eqtext}[1]{\overset{\text{\tiny\sffamily #1}}{=}} % Text over equality sign
 \newcommand{\Forall}[1]{\mathop{\vcenter{\hbox{\LARGE$\forall$}}}\limits_{#1}} % Huge \forall for full-line rendering
+\newcommand{\res}{\mathop{\text{Res}}\limits} % Residuum
 \setlist[enumerate]{label=(\alph*),ref=(\alph*),leftmargin=*,topsep=0.4ex,itemsep=-0.6ex,partopsep=1ex,parsep=1ex} % List margins
 \setlist[itemize]{topsep=0.4ex,itemsep=-0.6ex,partopsep=1ex,parsep=1ex} % List margins
 
@@ -815,5 +816,70 @@
   Wtedy funkcja $ g(z) = f(z) - (P(z) + R_1(z) + \dots + R_n(z)) $ jest holomorficzna w $ \mathbb{C} $ i ma osobliwość pozorną w $ \infty $,
   więc jest stała na mocy tw. Liouville'a.
 \end{proof}
+
+\begin{definition}
+  Niech $ f $ będzie funkcją holomorficzną w pierścieniowym otoczeniu $ V = \{z \in \mathbb{C}\colon 0 < \abs{z-a} < \epsilon \} $ punktu $ a \in \mathbb{C} $.
+  Residuum funkcji $ f $ w punkcie $ a $ nazywamy liczbę
+  $$
+    \res(f, a) = \frac{1}{2 \pi i} \int_{C(a, r)} f(\zeta) d\zeta,
+    \qquad
+    0 < r < \epsilon
+  $$
+\end{definition}
+
+\begin{theorem}[Cauchy’ego o residuach]
+  Niech $ D \subset \extcomplex $ obszar ograniczony skończoną liczbą konturów zawartych z brzegiem w obszarze $ G $.
+  Niech $ f $ funkcja holomorficzna w $ G $ poza skończoną liczbą punktów osobliwych $ a_1, \dots, a_n \in D $.
+  Wtedy
+  $$
+    \int_{\partial D} f(\zeta) d\zeta = 2 \pi i \sum_{j=1}^n \res(f, a)
+  $$ 
+\end{theorem}
+
+\begin{proof}
+  Dobieramy $ \epsilon > 0 $ tak, żeby koła $ B_j = \{ z \in \mathbb{C}: \abs{z - a_j} < \epsilon \} $ były parami rozłączne.
+  Wtedy $ D_{\epsilon} = D\backslash\bigcup\limits_{j=1}^{n} B_j $ jest obszarem wielospójnym i możemy zastosować tw. Cauchy'ego:
+  $$
+    0
+    = \int_{\partial D_{\epsilon}} f(\zeta) d\zeta
+    = \int_{\partial D} f(\zeta) d\zeta - \sum_{j=1}^{n} \int_{\partial B_j} f(\zeta) d\zeta
+    = \int_{\partial D} f(\zeta) d\zeta - \sum_{j=1}^{n} 2 \pi i \res(f, a_j)
+  $$
+\end{proof}
+
+\begin{theorem}
+  Przy powyższych założeniach, jeśli $ f(z) = \sum_{n=-\infty}{\infty} c_n (z-a)^n $ w $ V $, to $ \res(f, a) = c_{-1} $.
+\end{theorem}
+
+\begin{corollary}
+  Niech funkcja $ f $ holomorficzna w otoczeniu pierścieniowym punktu $ a \in \mathbb{C} $. Wtedy jeśli $ a $ jest:
+  \begin{enumerate}
+    \item punktem pozornie osobliwym funkcji $f$, to $ \res(f, a) = 0 $ (na odwrót nie!);
+    \item biegunem krotności $ 1 $ funkcji $ f $, to $ \res(f, a) = \lim_{z \to a} (z-a)f(z) $.
+    W szczególności, jeśli $ f(z) = \frac{\phi(z)}{\psi(z)} $, $ \phi(a) \neq 0 $, $ \phi(a) = 0 $, $ \phi'(a) \neq 0 $, to $ \res(f, a) = \frac{\phi(z)}{\psi'(z)} $;
+    \item biegunem krotności $k$ funkcji $f$, to $ \res(f, a) = \frac{1}{(k-1)!} \lim_{z \to a} \frac{\partial^{k-1}}{\partial z^{k-1}}\left( (z-a)^k f(z) \right)$.
+  \end{enumerate}
+  
+\end{corollary}
+
+\begin{definition}
+  Jeśli funkcja $ f = \sum_{n=-\infty}^{\infty} c_n z^n $, $ \abs{z} > r $ ma w $ \infty $ izolowany punkt osobliwy, to
+  $$
+    \res(f, \infty) = \frac{1}{2 \pi i} \int_{\gamma_R^{-1}} f(z) dz,
+    \qquad R > r
+  $$
+\end{definition}
+
+\begin{remark}
+   Ponieważ wyrazy z ujemnymi potęgami wchodzą w skład regularnej (a nie głównej) części rozwinięcia Laurenta funkcji w nieskończoności, to residuum w nieskończoności może nie być równe $0$ w punkcie regularnym.
+\end{remark}
+
+\begin{theorem}[O pełnej sumie residuów]
+  Jeśli funkcja $f$ jest holomorficzna w $ \mathbb{C} $ za wyjątkiem skończonej liczby punktów osobliwych $ a_k $,
+  to suma jej residuów w punktach $ a_k $ i w $ \infty $ jest równa zeru:
+  $$
+    \res(f, \infty) + \sum_k \res(f, a_k) = 0
+  $$
+\end{theorem}
 
 \end{document}
