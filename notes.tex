@@ -882,4 +882,133 @@
   $$
 \end{theorem}
 
+\subsection{Dalsze własności funkcji holomorficznych i meromorficznych}
+
+\begin{definition}[Pochodna logarytmiczna]
+  Pochodną logarytmiczną funkcji $f$ nazywamy funkcję $ \frac{f'}{f} $.
+\end{definition}
+
+Jeśli $ f $ meromorficzna w pewnym obszarze $G$ i nie znika wszędzie w $G$,
+to jej pochodna logarytmiczna jest meromorficzna i $ \res(\frac{f'}{f}, z_0) = \text{krotność } z_0 $,
+gdzie $ z_0 $ jest zerem lub biegunem $f$.
+
+% INFO: Ominięte dwa przykłady
+
+\begin{theorem}[Zasada argumentu]
+  Niech $\gamma$ kawałkami gładka krzywa Jordana (bez samoprzecięć).
+  Niech $ D \subset \mathbb{C} $ obszar ograniczony przez $ \gamma $.
+  Niech funkcja $f$ meromorficzna w $ G \supset \closure{D} $ ma $ Z(f) $ zer (z krotnościami) i $ B(f) $ biegunów (z krotnościami), i nie ma żadnych na $ \partial D $.
+  Wtedy $ Z(F) - B(f) = \frac{1}{2 \pi} \Delta_{\gamma} arg f $.
+\end{theorem}
+
+\begin{proof}
+  $ Z(f) - B(f) $ jest sumą residuów w zerach i biegunach w $ D $: % TODO: Dlaczego dokładnie?
+  $$
+    Z(f) - B(f)
+    = \frac{1}{2 \pi} \int_{\gamma} \frac{f'(z)}{f(z)} dz
+    = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{f'(\gamma(t))}{f(\gamma(t))} dt
+    = \frac{1}{2 \pi} \int_{0}^{2 \pi} \frac{(f \circ \gamma)'(t)}{(f \circ \gamma)(t)} dt
+    = \frac{1}{2 \pi} \int_{f \circ \gamma} \frac{1}{z} dz
+    = \frac{i \Delta_{\gamma} arg f}{2 \pi}
+  $$
+\end{proof}
+
+\begin{theorem}[Rouchego]
+  Niech $\gamma$ kawałkami gładka krzywa Jordana (bez samoprzecięć).
+  Niech $ D \subset \mathbb{C} $ obszar ograniczony przez $ \gamma $.
+  Niech $f$, $g$ holomorficzne w obszarze $ G \supset \closure{D} $ oraz $ \abs{f} > \abs{g} $ na $ \partial D $.
+  Wtedy $f$ i $f+g$ mają tyle samo zer.
+\end{theorem}
+
+% TODO: Przydałby się obrazek z (1 + f/g)
+
+\begin{proof}
+  Możemy przedstawić $ f+g $ jako $ f(1+\frac{g}{f}) $.
+  Część w nawiasie po drodze $ \partial D $ zawiera się w otwartym kole jednostkowym wokół $ (1, 0) $, więc nie okrąża zera i ma zerowy przyrost argumentu.
+  Z holomorficzności $f+g$ nie ma biegunów.
+  \begin{align*}
+    Z(f+g) &
+    = \frac{1}{2 \pi} \Delta_{\gamma} arg(f+g)
+    = \frac{1}{2 \pi} \Delta_{\gamma} arg \left( f\left(1+\frac{g}{f}\right) \right) \\ &
+    = \frac{1}{2 \pi} \left( \Delta_{\gamma} arg f + \Delta_{\gamma} arg\left(1+\frac{g}{f}\right) \right)
+    = \frac{1}{2 \pi} \left( \Delta_{\gamma} arg f + 0) \right)
+  \end{align*}
+\end{proof}
+
+% INFO: Ominięte dwa przykłady
+
+\begin{theorem}[Hurwitza]
+  Niech $f$ ma zero krotności $n$ w punkcie $ z_0 \in D $, $D$ obszar.
+  Niech $ (f_n) $ ciąg funkcji holomorficznych zbieżny niemal jednostajnie do $f$.
+  Wtedy istnieje $ \rho > 0 $ takie, że ddd. $ k $ $ f_k $ ma dokładnie $n$ zer w kole $ \abs{z - z_0} < \rho $ (licząc krotności).
+\end{theorem}
+
+\begin{proof}
+  Z tw. Weierstrassa o szeregach funkcji holomorficznych wynika, że $f$ holomorficzna w $D$.
+  Dobierzmy $ \rho > 0 $ tak, że $ K = K(z_0, \rho) \subset D $ i $ \forall z \in K\backslash\{ z_0 \}: f(z) \neq 0 $.
+  Niech $ \delta = \min_{\partial K} \abs{f(z)}$.
+  Skoro $ f_k $ zbiega do $ f $, to ddd. $k$ mamy $ \abs{f_k(z) - f(z)} < \delta $ na $ \partial K $.
+  Z tw. Rouchego wynika, że $ f_k = (f_k - f) + f $ ma tyle samo zer na $K$ co $ f $.
+\end{proof}
+
+\begin{corollary}
+  Jeśli ciąg $(f_k)$ funkcji holomorficznych i różnowartościowych w obszarze $D$ jest zbieżny niemal jednostajnie do funkcji $f$ różnej od stałej,
+  to funkcja $f$ jest różnowartościowa w $D$.
+\end{corollary}
+
+\begin{proof}
+  Załóżmy przeciwnie, że $f$ nie jest różnowartościowa w $D$ i przyjmuje tę samą wartość w $z_1$ i $z_2$.
+  Rozpatrzmy ciąg $ g_k(z) = f_k(z) - f_k(z_2) $, zbieżny niemal jednostajnie do $ g(z) = f(z) - f(z_2) $.
+  $ g(z) $ ma w $ z_1 $ zero pewnej krotności.
+  Dobierzmy $ \rho $ tak, że $ z_2 \notin K(z_1, \rho) \subset D $.
+  Z tw. Hurwitza ddd $k$ funkcje $g_k$ mają w tym kole zero, więc nie są różnowartościowe.
+\end{proof}
+
+\begin{definition}[Funkcja $p$-krotna]
+  Niech $f$ holomorficzna w $z_0$ i $w_0=f(z_0)$.
+  Funkcja $f$ jest $p$-krotna w otoczeniu $z_0$, jeśli
+  $ \exists\enskip r > 0 \quad\forall\enskip 0 < \delta < r \quad\exists\enskip \eta > 0 \quad\forall\enskip w \in K(w_0, \eta)\backslash\{w_0\}: f(?) = w $
+  w dokładnie $p$ różnych punktach $ K(z_0, \delta) $.
+  %$$ \Forall{n \in \mathbb{N}_0} \Forall{a \in D} f^{(n)}(a) = \frac{n!}{2 \pi i} \int_{\partial D} \frac{f(\zeta)}{(\zeta - a)^{n+1}} d\zeta $$
+\end{definition}
+
+\begin{theorem}
+  Jeśli $z_0$ jest $p$-krotnym zerem funkcji $f(z) - w_0$, to funkcja $f$ jest $p$-krotna w otoczeniu punktu $z_0$.
+\end{theorem}
+
+\begin{proof}
+  Zera funkcji holomorficznych są izolowane, więc istnieje otoczenie $ U = \{z \in \mathbb{C}: 0 < \abs{z - z_0} < r \} $, w którym $ f(z) - w_0 $ oraz $ f'(z) $ nie mają zer.
+  Weźmy $ 0 < \delta < r $ i niech $ \eta = \min_{z \in C(z_0, \delta)} \abs{f(z) - w_0} $.
+  
+  Niech $ w_1 \neq w_0 $ będzie dowolnym punktem koła $ K(w_0, \eta) $.
+  Zdefiniujmy $ F(z) = f(z) - w_0 $ i $ G(z) = w_0 - w_1 $.
+  Na okręgu $ C(z_0, \delta) $ zachodzi $ \abs{G(z)} < \eta \geq \abs{F(z)} $.
+  Stąd z tw. Rouchego wynika, że $ F + G = f - w_1 $ ma w $ K(z_0, \delta) $ tyle samo zer co $ F $, czyli $p$.
+  Wszystkie zera są jednokrotne, bo $ f'(z) \neq 0 $ w $ K(z_0, \delta)\backslash\{z_0\} $.
+\end{proof}
+
+\begin{corollary}[Tw. o zachowaniu obszaru]
+  Funkcja holomorficzna różna od stałej przekształca obszar na obszar.
+\end{corollary}
+
+\begin{proof}
+  Niech $ w_0 = f(z_0) $, wtedy $ z_0 $ jest zerem pewnej krotności funkcji $ f(z) - w_0 $.
+  Stąd funkcja $f$ jest p-krotna w otoczeniu $z_0$.
+  Stąd dla każdego dysku $ D(z_0, r) $ istnieje $ D(w_0, \epsilon) $ taki, że każdy punkt $ w_1 \in D(w_0, \epsilon) $ ma w przeciwobrazie $p$ różnych punktów w $ D(z_0, r) $.
+\end{proof}
+
+\begin{corollary}[Tw. o funkcji odwrotnej]
+  Jeśli $ f'(z_0) \neq 0 $ lub $z_0$ jest jednokrotnym biegunem $ f $, to w pewnym otoczeniu punktu $z_0$ funkcja $f$ ma funkcję odwrotną.
+\end{corollary}
+
+\begin{proof}
+  Jeśli $ f'(z_0) \neq 0 $ to $ z_0 $ jest jednokrotnym zerem funkcji $ f - f(z_0) $, więc $f$ jest jednokrotna w pewnym otoczeniu $U$ punktu $z_0$, więc ma f. odwrotną.
+  Niech $ g = f^{-1} $.
+  Pokazujemy, że $g$ ma pochodną w każdym punkcie $ w_1 \in f(U) $.
+  Oznaczmy $ z_1 = g(w_1) $.
+  Zauważmy, że $g$ jest ciągła, w p.p. ciąg $ g(w_n) $ miałby punkt skupienia różny od $ z_1 $ a wtedy $ f $ nie byłaby jednokrotna (przyjmowała by wartość $ z_1 $ w dwóch punktach).
+  Iloraz $ \frac{g(w) - g(w_1)}{w - w_1} = \frac{z - z_1}{f(z) - f(z_1)} \to \frac{1}{f'(z_1)} $ po $ w \to w_1 $.
+  Jeśli $ z_0 $ jest jednokrotnym biegunem funkcji $f$, to $ h = 1/f $ ma zero krotności $1$, więc $h^{-1}$ istnieje, zatem i $f^{-1}$. 
+\end{proof}
+
 \end{document}
