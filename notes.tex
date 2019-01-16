@@ -1011,4 +1011,65 @@ gdzie $ z_0 $ jest zerem lub biegunem $f$.
   Jeśli $ z_0 $ jest jednokrotnym biegunem funkcji $f$, to $ h = 1/f $ ma zero krotności $1$, więc $h^{-1}$ istnieje, zatem i $f^{-1}$. 
 \end{proof}
 
+\section{Dalsze własności odzworowań konforemnych}
+
+\begin{definition}
+  Obszary $ \extcomplex $, $ \mathbb{C}$, $ U = K(0, 1) $ nazywamy obszarami podstawowymi.
+\end{definition}
+
+\begin{theorem}
+  Wszystkie automorfizmy obszarów podstawowych są homografiami.
+\end{theorem}
+
+\begin{proof}
+  (1A) Niech $ \phi : \mathbb{C} \to \mathbb{C} $, $ z_0 \neq \infty $, $ \phi(z_0) = \infty $.
+  Wtedy $ \phi $ jest holomorficzna poza $ z_0 $, a w nim ma biegun.
+  Pokażemy, że krotność tego bieguna to $1$.
+
+  Weźmy $ \psi(z) = \frac{1}{\phi(z)} $.
+  $ \psi $ musi mieć zero krotności $1$ w punkcie $z_0$, w p.p. $ \phi $ nie byłaby jednokrotna w pierścieniowym otoczeniu $ z_0 $.
+  Stąd $ \phi = \frac{a}{z-z_0} + g(z) $, gdzie $g$ jest holomorficzna na $ \mathbb{C} $.
+  Mamy $ \lim_{z \to \infty} g(z) = \lim_{z \to \infty} \phi(z) = \phi(\infty) \in \mathbb{C} $,
+  więc z tw. Liouville'a $ g(z) = c $, a stąd $ \phi $ jest homografią.
+
+  (1B) Niech teraz $ z_0 = \infty $.
+  Wtedy $ g(z) = \frac{1}{\phi(1/z)} $ ma jednokrotne zero w $ 0 $.
+  Stąd $ \phi(1/z) $ ma biegun krotności $1$ w $0$, więc $ \phi(1/z) = \frac{a}{z} + g(z) $.
+  Podobnie jak poprzednio, przy $ z \to \infty $ mamy $ g(z) \to c \in \mathbb{C} $.
+  Stąd $ g(z) = c $, więc $ \phi = az + c $.
+
+  (2) Pokażemy, że $ \phi : \mathbb{C} \to \mathbb{C} $ można rozszerzyć do $ \extcomplex $ kładąc $ \phi(\infty) = \infty $.
+  Niech $ z_n \to \infty $.
+  Jeżeli $ z_n $ nie zbiega do $ \infty $, to istniałby w nim podciąg zbieżny do skończonej liczby, a wtedy przekształcenie odwrotne byłoby nieciągłe.
+  Skoro jest zbieżność do $ \infty $, to $ \frac{1}{\phi} $ jest holomorficzny i ma w $\infty$ osobliwość pozorną.
+  Można ją uzupełnić, więc $ \phi $ też można uzupełnić.
+  Więc $ \phi $ jest homografią z punktem stałym $ \phi(\infty) = \infty $, skąd $ \phi(z) = az + c $.
+
+  (3) Niech $ \phi : U \to U $.
+  Oznaczmy $ w_0 = \phi(0) $.
+  Patrzymy na $ h:U \to U $, $ h(w) = \frac{w-w_0}{1 - \closure{w_0}w} $, która przeprowadza $w_0$ na $0$.
+  Wtedy $ f = h \circ \phi $ jest automorfizmem $U$ spełniającym $ f(0) = 0 $.
+  Możemy skorzystać z Lematu Schwarza, więc $ \abs{f(z)} \leq \abs{z} $.
+  Podobnie dla $ f^{-1} $ jest $\abs{f^{-1}(z)} \leq \abs{z} $.
+  Musi więc być $ \abs{f(z)} = \abs{z} $.
+  Znowu z lematu Schwarza $ f(z) = e^{it}$, więc $f$ jest homografią, więc także i $\phi$.
+\end{proof}
+
+\begin{corollary}
+  Aut $ \extcomplex = \{ f(z) = \frac{az+b}{cz+d}: a,b,c,d \in \mathbb{C}, ad-bc \neq 0 \}$, \\
+  Aut $ \mathbb{C} = \{ f(z) = az+b: a,b \in \mathbb{C}, a \neq 0 \}$, \\
+  Aut $ U = \{ f(z) = e^{it}frac{z-a}{1 - \closure{a}{z}}: a \in \mathbb{C}, t \in \mathbb{R}, \abs{a} < 1 \} $.
+\end{corollary}
+
+\begin{theorem}
+  Obszary $ \extcomplex $, $ \mathbb{C}$, $ U = K(0, 1) $ są parami niehomeomorficzne.
+\end{theorem}
+
+\begin{proof}
+  $ \extcomplex $ jest zwarty, a reszta nie.
+  Gdyby było $ \alpha: \mathbb{C} \to U $, to z tw. Liouville'a $ \alpha(z) = c $, sprzeczność.
+\end{proof}
+
+% TODO: Tw. Riemanna o odwzorowaniach
+
 \end{document}
