@@ -1070,6 +1070,71 @@ gdzie $ z_0 $ jest zerem lub biegunem $f$.
   Gdyby było $ \alpha: \mathbb{C} \to U $, to z tw. Liouville'a $ \alpha(z) = c $, sprzeczność.
 \end{proof}
 
-% TODO: Tw. Riemanna o odwzorowaniach
+\begin{theorem}[Riemanna o odwzorowaniu]
+  Każdy jednospójny obszar $ \Omega \subset \mathbb{C} $ różny od $ \mathbb{C} $ jest izomorficzny konforemnie z kołem jednostkowym $ K(0, 1) = U $.
+\end{theorem}
+
+\begin{proof}
+  Załóżmy, że $ \Omega $ - jednospójny obszar w $ \mathbb{C} $, $ w_0 \in \mathbb{C}\backslash\Omega $.
+  Niech $ \Sigma $ oznacza klasę wszystkich różnowartościowych funkcji holomorficznych, takich że $ \psi(\Omega) \subset U $.
+  Pokażemy, że pewna z tych funkcji przekształca $ \Omega $ na $ U $.
+
+  (1) Klasa $ \Sigma $ jest niepusta.
+  Ponieważ $ \Omega $ jest jednospójna i $ w_0 \in \mathbb{C}\backslash\Omega $,
+  to musi istnieć funkcja $ \phi \in H(\Omega) $ taka, że $ \phi^2(z) = z - w_0 $ dla $ z \in \Omega $.
+  Funkcja $ \phi $ jest różnowartościowa, bo jeśli $ \phi(z_1) = \phi(z_2) $, to też $ \phi^2(z_1) = \phi^2(z_2) $, więc $ z_1 - w_0 = z_2 - w_0 $.
+  Podobnie nie istnieją takie $ z_1, z_2 $, że $ \phi(z_1) = -\phi(z_2) $.
+
+  Skoro $ \phi $ jest odwzorowaniem otwartym, to $ \phi(\Omega) $ zawiera pewne koło $ D(a, r) $ takie, że $ 0 < r < \abs{a} $.
+  Stąd koło $ D(-a, r) $ jest rozłączne z obrazem $ \phi(\Omega) $, więc $ \abs{ \phi(z) + a } \geq r $ dla $ z \in \Omega $.
+  Wtedy $ \varphi(z) = \frac{r}{\phi(z) + a} $ należy do $ \Sigma $.
+
+  (2) Jeśli $ \varphi \in \Sigma $, $ \varphi(\Omega) \neq U $ i $ z_0 \in \Omega $ dowolne,
+  to istnieje $ \varphi_1 \in \Sigma $, takie że $ \abs{ \varphi_1'(z_0) } > \abs{ \varphi'(z_0) } $.
+
+  % TODO: Przydałby się rysunek z wykładu
+
+  Niech $ \phi_{\alpha}(z) = \frac{z-\alpha}{1-\closure{\alpha}z} $.
+  Dla $ \alpha \in U $, $ \phi_{\alpha} $ jest holomorficzną bijekcją $ U $ na $ U $, a $ \phi_{\alpha}^{-1} = \phi_{-\alpha} $.
+
+  Niech $ \varphi \in \Sigma $, $ \alpha \in U\backslash\varphi(\Omega) $.
+  Wtedy $ \phi_{\alpha} \circ \varphi \in \Sigma $ i to złożenie nie ma zer w $ \Omega $, więc istnieje $ g \in H(\Omega) $, takie że $ g^2 = \phi_{\alpha} \circ \varphi $.
+  Tak jak poprzednio, $ g $ jest różnowartościowa, więc $ g \in \Sigma $.
+  Weźmy $ \beta = g(z_0) $, $ \varphi_1 = \phi_{\beta} \circ g $, wtedy $ \varphi_1 \in \Sigma $.
+  Oznaczmy $ s(w) = w^2 $.
+  Wtedy $ \varphi = \phi_{-\alpha} \circ s \circ g = \phi_{-\alpha} \circ s \phi_{-\beta} \circ \varphi_1 $.
+  Niech $ \gamma = \varphi(z_0) $.
+  Wtedy $ \phi_{\gamma} \circ \varphi = \phi_{\gamma} \circ \phi_{-\alpha} \circ s \circ g = \phi_{\gamma} \circ \phi_{-\alpha} \circ s \phi_{-\beta} \circ \varphi_1 = F \circ \varphi_1$,
+  gdzie $ F = \phi_{\gamma} \circ \phi_{-\alpha} \circ s \phi_{-\beta} $.
+  Ponieważ $ \varphi_1(z_0) = 0 $, to $ \phi_{\gamma}'(\gamma)\varphi'(z_0) = F'(0)\varphi_1'(z_0) $.
+  Widzimy, że $ F(0) = 0 $, $ F(U) \subset U $ i F nie jest funkcją różnowartościową $ U $ w $ U $ (bo $ s $ nie jest).
+  Zatem na mocy lematu Schwarza $ \abs{F'(0)} < 1 $, a $ \abs{\phi_{\gamma}'(\gamma)} = \frac{1}{1-\abs{\gamma}^2} \geq 1 $, a więc $ \abs{\varphi'(z_0)} < \abs{\varphi_1'(z_0)}$.
+  
+  Przy ustalonym punkcie $ z_0 \in \Omega $ rozpatrzmy teraz zbiór $ \{ \varphi'(z_0): \varphi \in \Sigma \} $.
+  Jest on ograniczony, bo dla dowolnej funkcji $ f \in \Sigma $ możemy rozpatrzyć funkcję $ g: K(0, 1) \to \Omega $, $ g(z) = z_0 + mz $,
+  gdzie $ m $ oznacza odległość $ z_0 $ od brzegu $ \Omega $,
+  oraz funkcję $ \phi_{a} $, gdzie $ a = f(z_0) $.
+  Wtedy funkcja $ G = \phi_a \circ f \circ g $ spełnia założenia lematu Schwarza, więc $ \abs{G'(0)} \leq 1 $, a $ G'(0) = \phi_a'(a)f'(z_0)m = \frac{m}{1 - \abs{a}^2}f'(0)$.
+  Zatem $ \abs{f'(z_0)} \leq \frac{1-\abs{a}^2}{m} < \frac{1}{m} $.
+
+  Niech $ \eta = \sup\{ \abs{\varphi'(z_0)} : \varphi \in \Sigma \}$.
+  Z powyższego wynika, że jeśli funkcja $ h \in \Sigma $ spełnia równość $ \abs{h'(z_0)} = \eta $, to $ h(\Omega) = U$.
+  Wystarczy więc udowodnić istnienie takiej funkcji $h$.
+
+  (3) Dowód tego, że istnieje taka funkcja $ h:\Omega \to U $, że $ \abs{h'(z_0)} = \eta $.
+  Ponieważ wszystkie funkcje $ \varphi \in \Sigma $ są ograniczone (przez $1$),
+  to z twierdzenia udowodnionego przez Paula Montela wynika, że rodzina $\Sigma$ jest normalna,
+  tzn. z każdego ciągu elementów $\Sigma$ można wybrać podciąg niemal jednostajnie zbieżny.
+  Z definicji liczby $\eta$ oraz definicji supremum wynika istnienie ciągu $ (\varphi_n) $ o wyrazach w $\Sigma$, takiego że $ \abs{\varphi_n'(z_0)} \to \eta $,
+  możemy z niego wybrać podciąg zbieżny niemal jednostajnie na $ \Omega $ do granicy $h$.
+  Wtedy $ h \in H(\Omega) $.
+  Dla uproszczenia załóżmy, że ciąg $ (\varphi_n) $ jest niemal jednostajnie zbieżny.
+  Ciąg pochodnych też jest zbieżny do funkcji $ h'(z) $, w szczególności $ \varphi_n'(z_0) \to h'(z_0) $.
+  Ponieważ $ \eta > 0 $, to funkcja $h$ jest różna od stałej.
+  Ponieważ $ \varphi_n(\Omega) \subset U $ dla wszystkich $n$, to $ h(\Omega) \subset \closure{U} $, ale z twierdzenia o zachowaniu obszaru wynika, że $ h(\Omega) \subset U $.
+  Należy jeszcze tylko wykazać, że funkcja $h$ jest różnowartościowa.
+  Wynika to z wniosku z twierdzenia Hurwitza:
+  jeśli ciąg funkcji różnowartościowych jest niemal jednostajnie zbieżny do funkcji różnej od stałej, to ta funkcja jest różnowartościowa.
+\end{proof}
 
 \end{document}
