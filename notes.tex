@@ -1137,4 +1137,106 @@ gdzie $ z_0 $ jest zerem lub biegunem $f$.
   jeśli ciąg funkcji różnowartościowych jest niemal jednostajnie zbieżny do funkcji różnej od stałej, to ta funkcja jest różnowartościowa.
 \end{proof}
 
+\begin{definition}
+  Rodzina funkcji $ \mathcal{F} $ na obszarze $ \Omega $ nazywa się wspólnie ograniczona (na podzbiorach zwartych),
+  jeśli dla każdego podzbioru zwartego $ K \subset \Omega $ istnieje stała $ M(K) $ taka, że $ \abs{f(z)} \leq M(K) $ dla wszystkich $ z \in K $ oraz wszystkich $ f \in \mathcal{F} $.
+  
+  Rodzina funkcji $ \mathcal{F} $ na obszarze $ \Omega $ nazywa się normalna, jeśli z każdego ciągu elementów $ \mathcal{F} $ można wybrać podciąg niemal jednostajnie zbieżny w $ \Omega $ (przy czym funkcja graniczna nie musi należeć do $ \mathcal{F} $).
+\end{definition}
+
+\begin{theorem}[Montela]
+  Jeśli rodzina $ \mathcal{F} $ funkcji holomorficznych na obszarze $ \Omega $ jest wspólnie ograniczona, to jest normalna.
+\end{theorem}
+
+% TODO: Tu przydałby się rysunek
+
+\begin{proof}
+  Weźmy ciąg zbiorów zwartych $ K_1 \subset K_2 \subset \dots \subset \Omega $, sumujących się do $ \Omega $ i takich, że $ K_i \subset K_{i+1} $.
+  Można go określić np. jako $ K_n = \{ z \in \Omega: \abs{z} \leq n \wedge \rho(z, \partial\Omega) \geq \frac{1}{n} \} $.
+  Wtedy istnieją liczby $ \delta_n $ takie, że otoczenia $ K(z, 2\delta_n), z \in K_n $ nie dotykają brzegu $ \Omega $.
+  Niech $ z', z'' \in K_n $.
+  Wtedy
+  \begin{align*}
+    f(z') - f(z'') &
+    = \frac{1}{2 \pi i} \int_{C(z', 2\delta_n)} \frac{f(\zeta)}{\zeta-z'} d\zeta - \frac{1}{2 \pi i} \int_{C(z', 2\delta_n)} \frac{f(\zeta)}{\zeta-z''} d\zeta \\ &
+    = \frac{1}{2 \pi i} \int_{C(z', 2\delta_n)} \frac{f(\zeta)(z'-z'')}{(\zeta-z')(\zeta-z'')} d\zeta \\ &
+    = \frac{(z'-z'')}{2 \pi i} \int_{C(z', 2\delta_n)} \frac{f(\zeta)}{(\zeta-z')(\zeta-z'')} d\zeta
+  \end{align*}
+  Teraz szacując
+  \begin{align*}
+    \abs{f(z') - f(z'')} &
+    = \frac{\abs{z'-z''}}{2 \pi i} \abs{\int_{C(z', 2\delta_n)} \frac{f(\zeta)}{(\zeta-z')(\zeta-z'')} d\zeta} \\ &
+    \leq \frac{\abs{z'-z''}}{2 \pi i} \cdot \frac{2 \pi \cdot 2\delta_n \cdot M(K_{n+1})}{2\delta_n \cdot \delta_n}
+    = \frac{\abs{z'-z''} \cdot M(K_{n+1})}{\delta_n}
+  \end{align*}
+  Stąd wynika, że $ \mathcal{F} $ jest rodziną funkcji jednakowo ciągłych, to znaczy
+  $$
+    \forall\enskip n \in \mathbb{N} \quad\forall\enskip \epsilon > 0 \quad\exists\enskip \delta > 0 \quad\forall\enskip z',z'' \in K_n \quad\forall\enskip f \in \mathcal{F}
+    \qquad \abs{z' - z''} < \delta \Rightarrow \abs{f(z') - f(z'')} < \epsilon
+  $$
+
+  Niech $ (f_n) $ będzie ciągiem w $ \mathcal{F} $.
+  Weźmy $ E \subset \Omega $ przeliczalny gęsty, $ w_1, w_2, \cdots $ elementy $ E $.
+  $ \forall\enskip z \in \Omega (f_n(z)) $ jestt ograniczony, zatem zawiera podciąg $ (f_{m,1}) $ zbieżny w punkcie $ w_1 $, $ (f_{m,2}) $ zbieżny w  $ w_2 $, itd.
+  Ciąg $ (f_{m,m}) $ jest zbieżny w każdym punkcie $ w_i $.
+
+  Pokazujemy, że $ (f_{m,m}) $ jest zbieżny jednostajnie na każdym ze zbiorów $ K_n $.
+  Ustalmy $ K_n $, $ \epsilon > 0 $ i niech $ \delta = \frac{\epsilon \cdot \delta_n}{M(K_{n+1})} $.
+  Ponieważ $ K_n $ zwarty, to ma pokrycie skończone dyskami $ K(z_i, \delta), i = 1 \dots p $.
+  Dodatkowo, ddd $ n $ mamy $ \abs{f_{r,r}(z_i) - f_{s,s}(z_i)} < \epsilon $.
+  Dowolny punkt $ z $ wpada do pewnej kuli $ K(z_i, \delta) $, więc
+  $ \abs{f_{r,r}(z) - f_{s,s}(z)} \leq \abs{f_{r,r}(z) - f_{r,r}(z_i)} + \abs{f_{r,r}(z_i) - f_{s,s}(z_i)} + \abs{f_{s,s}(z_i) - f_{s,s}(z)} < 3\epsilon $.
+  Pierwszy i trzeci składnik $ < \epsilon $ z jednakowej ciągłości, a środkowy ze zbieżności $ f_{m,m} $.
+\end{proof}
+
+\begin{theorem}[Zasada symetrii Schwarza]
+  Niech $ D_1, D_2 $ rozłączne obszary mojące wspólny odcinek $ \gamma $ na brzegach.
+  Niech $ f_1 \in H(D_1), f_2 \in H(D_2) $ ciągłe na $ D_1 \cup \gamma, D_2 \cup \gamma $ odpowiednio i $ f_1 = f_2 $ na $ \gamma $.
+  Wtedy funkcja $ f = f_1 $ na $ D_1 $ i $ f_2 $ na $ D_2 $ jest holomorficzna na $ D = D_1 \cup \gamma \cup D_2 $.
+\end{theorem}
+
+\begin{proof}
+  $ f $ jest ciągła na $ D $.
+  Holomorficzność będzie wynikać z tw. Morery.
+  Weźmy dowolny trójkąt $ \closure{\bigtriangleup} \subset D $.
+  Jeśli $ \closure{\bigtriangleup} \subset D_1 $ lub $ \closure{\bigtriangleup} \subset D_2 $, to całka po $ \partial\bigtriangleup $ jest równa zero z tw. Cauchy’ego.
+  Załóżmy więc, że $ \gamma $ dzieli $ \bigtriangleup $ na dwie części, $ \bigtriangleup_1, \bigtriangleup_2 $.
+  Mamy $ \int_{\partial\bigtriangleup} f(z) dz = \int_{\partial\bigtriangleup_1} f(z) dz + \int_{\partial\bigtriangleup_2} f(z) dz $.
+  Oznaczmy przez $ T_h $ trapez odcięty z $ \bigtriangleup $ przez prostą w odległości $ h $ od $ \gamma $.
+  Całka po brzegu $ \bigtriangleup $ jest całką po brzegu małego trójkąta (zerową) i po brzegu trapezu $ T_h $.
+  Długości ramion $ \to 0 $, więc całkujemy tylko po podstawach $ \gamma_1, \gamma_2 $.
+  Niech $ \lambda(z) = z_0 + k(z - z_0) $ (gdzie $ z_0 $ wierzchołek trójkąta) oznacza liniowe przekształcenie $ \gamma_1 $ na $ \gamma_2 $.
+  Mamy
+  $
+  \int_{\partial\bigtriangleup} f(z) dz =
+  \int_{\partial T_h} f(z) dz =
+  \int_{\gamma_1} f(z) dz + \int_{\gamma_2} f(z) dz + O(h) =
+  \int_{\gamma_1} \left[ f(z) - kf(\lambda(z)) \right] dz
+  $
+  Wszystko to zbiega do $ 0 $, bo $ \lambda $ dąży do $ z $ na $ \gamma_1 $, $ f $ jednostajnie ciągła, więc funkcja podcałkowa zbiega do $ 0 $.
+  A że całka po $ \partial\bigtriangleup $ nie zależy od doboru $ h $, to musi być zerowa.
+\end{proof}
+
+\begin{corollary}[Zasada symetrii (wersja II)]
+  Załóżmy, że funkcja $f$ jest holomorficzna w obszarze $D$, którego brzeg zawiera odcinek $\gamma$ osi rzeczywistej oraz że obszar $D$ jest rozłączny ze swoim odbiciem $D'$ względem osi.
+  Jeśli funkcja $f$ jest ciągła na $D \cup \gamma$ i przyjmuje na $\gamma$ wartości rzeczywiste, to można ją rozszerzyć do funkcji $F$ holomorficznej na obszarze $D \cup D'$ biorąc $ \closure{f(\closure{z})} $ na odbiciu.
+\end{corollary}
+
+\begin{proof}
+  Wystarczy pokazać, że $ g(z) = \closure{f(\closure{z})} $ jest holomorficzna na $ D' $.
+  Ale mamy $ \frac{g(z + \Delta z) - g(z)}{\Delta z} = \frac{\closure{f(\closure{z + \Delta z})} - \closure{f(\closure{z})}}{\Delta z} $,
+  więc $ g'(z) = \closure{f'(\closure{z})} $.
+  Ponadto $ f = g $ na $ \gamma $, więc teza wynika z poprzedniego twierdzenia.
+\end{proof}
+
+\begin{corollary}
+  Jeśli funkcja całkowita $f$ przyjmuje wartości rzeczywiste na osi rzeczywistej, to spełniony jest warunek $ f(\closure{z}) = \closure{f(z)} $ dla wszystkich $z$, np. $ \sin(\closure{z}) = \closure{\sin(z)} $.
+\end{corollary}
+
+\begin{remark}
+  Zasadę symetrii można uogólnić na przypadek łuków okręgów.
+  W szczególności, jeśli funkcja holomorficzna przeprowadza łuk okręgu (uog.) $ \gamma_1 $ w łuk okręgu (uog.) $ \gamma_2 $,
+  to punkty symetryczne względem $ \gamma_1 $ przeprowadza w punkty symetryczne względem $ \gamma_2 $.
+\end{remark}
+
 \end{document}
