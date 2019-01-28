@@ -1,6 +1,7 @@
 # Auxiliary files
 *.aux
 *.log
+*.loe
 
 # Compiled output
 *.pdf

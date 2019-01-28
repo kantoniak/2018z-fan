@@ -11,6 +11,8 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{thmtools}
+\renewcommand{\listtheoremname}{Lista definicji i twierdzeń}
 \usepackage{enumitem}
 \usepackage{tikz}
 \usepackage{wrapfig}
@@ -41,6 +43,10 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Uwaga}
 
+\makeatletter
+\renewcommand\thmt@listnumwidth{-1.5em} % Very hacky, but LOTs does not provide any styling.
+\makeatother
+
 % Proof style
 \expandafter\let\expandafter\oldproof\csname\string\proof\endcsname
 \let\oldendproof\endproof
@@ -58,11 +64,12 @@
 
 % Title
 {\huge\bfseries\@title\par}
-\vspace{0.1cm}
-{\Large Notatki z semestru zimowego 2018/2019\par}
+\vspace{0.2cm}
+Notatki z semestru zimowego 2018/2019, przygotowane na podstawie notatek doktora Konarskiego dostępnych na stronie i wykładu.
+
+{\small\listoftheorems[ignoreall,onlynamed={theorem,definition,remark,corollary}]}
 
 % TODO: Lemat Jordana (do poprzedniej sekcji)
-
 \section{Szeregi o wyrazach zespolonych}
 
 \subsection{Szereg Taylora funkcji holomorficznej}
@@ -503,8 +510,6 @@
 
 \subsection{Szereg Laurenta i otoczenia pierścieniowe}
 
-\pagebreak
-
 \begin{theorem}[O rozwijaniu funkcji holomorficznej w szereg Laurenta]
   Rozważmy pierścień $ V = \{z \in \mathbb{C}\colon r < \abs{z-a} < R\} $, $ 0 \leq r < R \leq +\infty $.
   Niech $ f $ funkcja holomorficzna na $ V $.
@@ -832,7 +837,7 @@
   Niech $ f $ funkcja holomorficzna w $ G $ poza skończoną liczbą punktów osobliwych $ a_1, \dots, a_n \in D $.
   Wtedy
   $$
-    \int_{\partial D} f(\zeta) d\zeta = 2 \pi i \sum_{j=1}^n \res(f, a)
+    \int_{\partial D} f(\zeta) d\zeta = 2 \pi i \sum_{j=1}^n \res(f, a_j)
   $$ 
 \end{theorem}
 
