@@ -2,6 +2,7 @@
 *.aux
 *.log
 *.loe
+*.out
 
 # Compiled output
 *.pdf
