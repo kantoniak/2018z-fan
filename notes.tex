@@ -108,7 +108,6 @@ Notatki z semestru zimowego 2018/2019, przygotowane na podstawie notatek doktora
 
 \begin{proof}
   Całkujemy po koncentrycznych okręgach wewnątrz koła $ K(a, R) $.
-
   \begin{align*}
     f(z) &
     = \frac{1}{2 \pi i} \int_{C(a, r)} \frac{f(\zeta)}{\zeta-z} d\zeta
@@ -159,7 +158,7 @@ Notatki z semestru zimowego 2018/2019, przygotowane na podstawie notatek doktora
   Niech $ c_{n} $ - dowolny ciąg liczb zespolonych. Szereg $ \sum_{n=0}^{\infty} c_{n}(z-a)^{n} $ ma promień zbieżności $ R = \frac{1}{\limsup \sqrt[n]{\abs{c_{n}}}} $, z uwzględnieniem $ 0 $ i $ \infty $.
 \end{theorem}
 
-\begin{theorem}
+\begin{theorem}[Cauchy'ego-Hadamarda]
   Szereg potęgowy $ \sum c_{n}(z-a)^{n} $ o promieniu zbieżności $ R $ jest 
   \begin{enumerate}
     \item zbieżny dla każdej liczby $ z \in K(a, R) $; \label{prom-zbieznosci-zbieznosc}
@@ -270,7 +269,7 @@ Notatki z semestru zimowego 2018/2019, przygotowane na podstawie notatek doktora
 \end{theorem}
 
 \begin{proof}
-  Wystarczy wykazać holomorficzność w doowlnym kole $ U \subset D $.
+  Wystarczy wykazać holomorficzność w dowolnym kole $ U \subset D $.
   Z lematu o istnieniu funkcji pierwotnej w kole wynika, że $ f $ ma funkcję pierwotną $ F $.
   Z wniosku o pochodnych szeregu Taylora $ F $ jest holomorficzna, więc $ f $ jest holomorficzna w $ U $.
 \end{proof}
@@ -704,7 +703,7 @@ Notatki z semestru zimowego 2018/2019, przygotowane na podstawie notatek doktora
     \item $ a $ jest punktem pozornie osobliwym funkcji $ f $; \label{tw-riemanna-poz}
     \item $ f $ jest ograniczona w pewnym otoczeniu pierścieniowym  $ V' = \{ z \in \mathbb{C}: 0 < \abs{z-a} < \epsilon' \} $; \label{tw-riemanna-ogr}
     \item część główna szeregu Laurenta jest zerowa; \label{tw-riemanna-gl-zerowa}
-    \item można określić wartość $ f(a) $ w taki sposób, aby otrzymać funkcję holomorficzną w całym kole $ K(0, \epsilon) $. \label{tw-riemanna-dookreslenie}
+    \item można określić wartość $ f(a) $ w taki sposób, aby otrzymać funkcję holomorficzną w całym kole $ K(a, \epsilon) $. \label{tw-riemanna-dookreslenie}
   \end{enumerate}
 \end{theorem}
 
@@ -779,7 +778,7 @@ Notatki z semestru zimowego 2018/2019, przygotowane na podstawie notatek doktora
 
 \begin{remark}
   Z definicji punktów osobliwych wynika, że $ \infty $ jest punktem pozornie osobliwym, biegunem, punktem istotnie osobliwym funkcji $f$ wtedy i tylko wtedy,
-  gdy punkt $0$ jest takim punktem dla funkcji $ f(\frac{1}{z} $. W terminach szeregu Laurenta wygląda to tak.
+  gdy punkt $0$ jest takim punktem dla funkcji $ f(\frac{1}{z}) $. W terminach szeregu Laurenta wygląda to tak.
 \end{remark}
 
 \begin{theorem}
@@ -816,7 +815,7 @@ Notatki z semestru zimowego 2018/2019, przygotowane na podstawie notatek doktora
 \begin{proof}
   Ponieważ bieguny w $ \extcomplex $ są izolowane, to jest ich skończenie wiele.
   Oznaczmy je $ a_1, \dots, a_n $.
-  Niech $ R_j(z) = \sum_{k=1}{n_j} c_{k} (z-a)^{-k} $, $ j = 1, \dots, n $ oznacza część główną szeregu Laurenta $ f $ w otoczeniu pierścieniowym punktu $ a_j $,
+  Niech $ R_j(z) = \sum_{k=1}{a_j} c_{k} (z-a)^{-k} $, $ j = 1, \dots, n $ oznacza część główną szeregu Laurenta $ f $ w otoczeniu pierścieniowym punktu $ a_j $,
   a $ P(z) = \sum_{k=1}^{m} c_k z^k $ część główną w otoczeniu pierścieniowym $ \infty $.
   Wtedy funkcja $ g(z) = f(z) - (P(z) + R_1(z) + \dots + R_n(z)) $ jest holomorficzna w $ \mathbb{C} $ i ma osobliwość pozorną w $ \infty $,
   więc jest stała na mocy tw. Liouville'a.
@@ -853,7 +852,7 @@ Notatki z semestru zimowego 2018/2019, przygotowane na podstawie notatek doktora
 \end{proof}
 
 \begin{theorem}
-  Przy powyższych założeniach, jeśli $ f(z) = \sum_{n=-\infty}{\infty} c_n (z-a)^n $ w $ V $, to $ \res(f, a) = c_{-1} $.
+  Przy powyższych założeniach, jeśli $ f(z) = \sum_{n=-\infty}^{\infty} c_n (z-a)^n $ w $ V $, to $ \res(f, a) = c_{-1} $.
 \end{theorem}
 
 \begin{corollary}
@@ -922,7 +921,7 @@ gdzie $ z_0 $ jest zerem lub biegunem $f$.
   Niech $\gamma$ kawałkami gładka krzywa Jordana (bez samoprzecięć).
   Niech $ D \subset \mathbb{C} $ obszar ograniczony przez $ \gamma $.
   Niech $f$, $g$ holomorficzne w obszarze $ G \supset \closure{D} $ oraz $ \abs{f} > \abs{g} $ na $ \partial D $.
-  Wtedy $f$ i $f+g$ mają tyle samo zer.
+  Wtedy $f$ i $f+g$ mają tyle samo zer w $D$.
 \end{theorem}
 
 % TODO: Przydałby się obrazek z (1 + f/g)
